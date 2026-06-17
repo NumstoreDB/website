@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{{cssHref}}" />
+    {{viteHead}}
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <div class="site">
+      <header class="topbar">
+        <a class="brand" href="/">
+          <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#0a0a0a" />
+            <path d="M9 22V10l14 12V10" stroke="#f59e0b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Numstore</span>
+        </a>
+        <nav class="topnav" aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/docs/">Docs</a>
+          <a href="/blog/">Blog</a>
+        </nav>
+      </header>
+
+      <div class="shell">
+        <aside class="sidebar" aria-label="Sections">
+          {{nav}}
+        </aside>
+
+        <main id="main" class="content">
+          {{body}}
+        </main>
+      </div>
+
+      <footer class="sitefoot">
+        <span>© <span class="year"></span> Numstore LLC</span>
+        <span class="dot">·</span>
+        <a href="/">Home</a>
+        <span class="dot">·</span>
+        <a href="/docs/">Docs</a>
+        <span class="dot">·</span>
+        <a href="/blog/">Blog</a>
+      </footer>
+    </div>
+    <script>
+      document.querySelectorAll('.year').forEach((e) => (e.textContent = new Date().getFullYear()))
+    </script>
+  </body>
+</html>
