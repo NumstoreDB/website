@@ -1,0 +1,78 @@
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    background-color: theme('colors.bg');
+    color: theme('colors.fg');
+    font-family: theme('fontFamily.sans');
+  }
+
+  h1, h2, h3, h4 {
+    font-family: theme('fontFamily.display');
+    letter-spacing: -0.02em;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg rounded;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-container px-6 sm:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold transition-colors min-h-[44px] focus-visible:ring-offset-bg;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-bg hover:bg-accent-soft;
+  }
+
+  .btn-secondary {
+    @apply btn border border-border bg-transparent text-fg hover:bg-elevated;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-fg hover:bg-elevated;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1 text-xs font-medium uppercase tracking-widest text-muted;
+  }
+
+  .reveal {
+    @apply opacity-0;
+  }
+
+  .reveal-visible {
+    @apply animate-fade-in-up opacity-100;
+  }
+}
