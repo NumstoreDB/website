@@ -1,5 +1,26 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import hljs from 'highlight.js/lib/core'
+import bash from 'highlight.js/lib/languages/bash'
+import c from 'highlight.js/lib/languages/c'
+import go from 'highlight.js/lib/languages/go'
+import python from 'highlight.js/lib/languages/python'
+import rust from 'highlight.js/lib/languages/rust'
+// github-dark gives us colors close to the rest of the site
+// without needing a custom theme. We override the background
+// below so the panel blends with our surface.
+import 'highlight.js/styles/github-dark.css'
+
+hljs.registerLanguage('bash', bash)
+hljs.registerLanguage('c', c)
+hljs.registerLanguage('go', go)
+hljs.registerLanguage('python', python)
+hljs.registerLanguage('rust', rust)
+
+// Wrap the literal `github.com/...` in our Go example imports so Vite's
+// dev-time dependency scanner doesn't mistake them for real ES imports
+// it should pre-bundle.
+const GH = 'github.com'
 
 interface Example {
   id: string
@@ -176,7 +197,7 @@ fn main() -> numstore::Result<()> {
 
 import (
     "fmt"
-    "github.com/numstore/numstore-go"
+    "${GH}/numstore/numstore-go"
 )
 
 func main() {
@@ -258,7 +279,7 @@ async fn main() -> nse::Result<()> {
 
 package main
 
-import "github.com/numstore/numstore-enterprise-go"
+import "${GH}/numstore/numstore-enterprise-go"
 
 func main() {
     c, _ := nse.Connect("nse://node-0,node-1,node-2")
@@ -294,6 +315,22 @@ async function copyCode() {
     copied.value = false
   }
 }
+
+function highlight(code: string, language: string): string {
+  try {
+    return hljs.highlight(code, { language, ignoreIllegals: true }).value
+  } catch {
+    // Unknown language → fall back to plain text (still escaped).
+    return hljs.highlight(code, { language: 'plaintext', ignoreIllegals: true }).value
+  }
+}
+
+const highlightedCode = computed(() =>
+  highlight(currentExample.value.code, currentExample.value.id),
+)
+const highlightedInstall = computed(() =>
+  highlight(currentExample.value.install, 'bash'),
+)
 </script>
 
 <template>
@@ -400,15 +437,24 @@ async function copyCode() {
         <div class="grid gap-px bg-border md:grid-cols-[1fr_2fr]">
           <div class="bg-bg p-5">
             <div class="font-mono text-[10px] uppercase tracking-widest text-muted">Install</div>
-            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-relaxed text-fg"><code>{{ currentExample.install }}</code></pre>
+            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-relaxed"><code class="hljs language-bash" v-html="highlightedInstall" /></pre>
             <p class="mt-6 text-xs leading-relaxed text-muted">{{ currentProduct.blurb }}</p>
           </div>
           <div class="bg-bg p-5">
             <div class="font-mono text-[10px] uppercase tracking-widest text-muted">Example</div>
-            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6] text-fg"><code>{{ currentExample.code }}</code></pre>
+            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6]"><code :class="['hljs', `language-${currentExample.id}`]" v-html="highlightedCode" /></pre>
           </div>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+/* Strip github-dark's background so the code blends with our panel. */
+:deep(.hljs) {
+  background: transparent;
+  padding: 0;
+  color: #e7e7ea;
+}
+</style>
