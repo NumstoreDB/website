@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import Timeline from '../components/Timeline.vue'
-import LogoCloud from '../components/LogoCloud.vue'
 import { site } from '../config/site'
 </script>
-
 <template>
   <div>
     <section class="relative overflow-hidden border-b border-border">
@@ -12,16 +10,41 @@ import { site } from '../config/site'
         <div class="max-w-3xl">
           <div class="eyebrow">About</div>
           <h1 class="mt-6 font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-            We are building the storage layer
-            <span class="text-accent-soft">numerical workloads deserve.</span>
+            Numstore is building the most pluggable storage layer
+            <span class="text-accent-soft">everything can be a database.</span>
           </h1>
           <p class="mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
-            Most databases are built for rows of business records. Numstore is built for arrays of numbers —
-            telemetry, simulation output, time series, the raw material of modern science and finance.
-            Our mission is to give those workloads a foundation that is fast, honest about its guarantees,
-            and operable by small teams.
+            The "file as a database" concept means any file format you want can have
+            the same guarantees as a regular industry grade database. JSON, CSV, PNG,
+            image data, made up binary formats, can all have the same benefits that
+            come from industry grade databases:
           </p>
-
+          <ul class="mt-6 max-w-2xl space-y-4 text-base leading-relaxed text-muted md:text-lg">
+            <li>
+              <span class="font-semibold text-foreground">Atomicity.</span>
+              A write either completes in full or has no effect. If a process crashes
+              partway through, the file is left in its pre-write state — never
+              half-written or partially updated.
+            </li>
+            <li>
+              <span class="font-semibold text-foreground">Consistency.</span>
+              Every write moves the file from one valid state to another valid state.
+              Format invariants and schema constraints hold before and after each
+              operation; invalid intermediate states are not observable.
+            </li>
+            <li>
+              <span class="font-semibold text-foreground">Isolation.</span>
+              Concurrent readers and writers do not see each other's partial work. A
+              reader observes either the pre-write or post-write state of the file,
+              never an in-progress mixture.
+            </li>
+            <li>
+              <span class="font-semibold text-foreground">Durability.</span>
+              Once a write is acknowledged, it survives process termination, crashes,
+              and power loss. Acknowledgement implies the data has reached persistent
+              storage, not just an in-memory buffer.
+            </li>
+          </ul>
           <div class="mt-10 flex flex-wrap gap-3">
             <a :href="`mailto:${site.contact.email}`" class="btn-primary">
               Contact us
@@ -33,46 +56,6 @@ import { site } from '../config/site'
         </div>
       </div>
     </section>
-
-    <section class="border-b border-border py-20 md:py-28">
-      <div class="container-page grid gap-12 md:grid-cols-12">
-        <div class="md:col-span-5">
-          <div class="eyebrow">Principles</div>
-          <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-            How we work.
-          </h2>
-        </div>
-        <ul class="md:col-span-7 grid gap-6 sm:grid-cols-2">
-          <li class="rounded-xl border border-border bg-surface p-6">
-            <h3 class="font-display text-lg font-semibold">Mechanical sympathy</h3>
-            <p class="mt-2 text-sm leading-relaxed text-muted">
-              We measure before we guess. Cache lines, page tables, and disk queues drive our designs — not fashion.
-            </p>
-          </li>
-          <li class="rounded-xl border border-border bg-surface p-6">
-            <h3 class="font-display text-lg font-semibold">Boring on purpose</h3>
-            <p class="mt-2 text-sm leading-relaxed text-muted">
-              Storage failures are loud and expensive. We pick boring, well-understood algorithms whenever we can.
-            </p>
-          </li>
-          <li class="rounded-xl border border-border bg-surface p-6">
-            <h3 class="font-display text-lg font-semibold">Open by default</h3>
-            <p class="mt-2 text-sm leading-relaxed text-muted">
-              The engine and the file format are open source. Enterprise pays for operations, not for access.
-            </p>
-          </li>
-          <li class="rounded-xl border border-border bg-surface p-6">
-            <h3 class="font-display text-lg font-semibold">Small team, sharp edges</h3>
-            <p class="mt-2 text-sm leading-relaxed text-muted">
-              We stay small so every engineer can own a system end-to-end. Bureaucracy is the enemy of correctness.
-            </p>
-          </li>
-        </ul>
-      </div>
-    </section>
-
     <Timeline />
-
-    <LogoCloud heading="Trusted by Companies Worldwide" />
   </div>
 </template>

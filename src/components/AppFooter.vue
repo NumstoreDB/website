@@ -12,10 +12,7 @@ const youtubeUrl = `https://www.youtube.com/${site.youtube.handle}`
     <div class="container-page grid gap-12 py-16 md:grid-cols-12">
       <div class="md:col-span-5">
         <div class="flex items-center gap-2 font-display text-lg font-bold">
-          <svg viewBox="0 0 32 32" class="h-7 w-7" aria-hidden="true">
-            <rect width="32" height="32" rx="7" fill="#1c3a7a" />
-            <path d="M9 22V10l14 12V10" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
+          <img src="/logo.png" class="h-7 w-7" aria-hidden="true" alt="logo" />
           {{ site.name }}
         </div>
         <p class="mt-4 max-w-md text-sm leading-relaxed text-muted">

@@ -38,24 +38,15 @@ function closeMobile() {
         class="flex items-center gap-2 font-display text-lg font-bold tracking-tight text-fg"
         @click="closeMobile"
       >
-        <svg
-          viewBox="0 0 32 32"
-          class="h-7 w-7 shrink-0"
-          aria-hidden="true"
-        >
-          <rect width="32" height="32" rx="7" fill="#1c3a7a" />
-          <path
-            d="M9 22V10l14 12V10"
-            stroke="#ffffff"
-            stroke-width="2.4"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <img src="/logo.png"
+             class="h-7 w-7 shrink-0"
+             aria-hidden="true"
+             alt="Logo"/>
         <span
           class="transition-all duration-200 origin-left"
           :class="scrolled ? 'scale-x-0 opacity-0 w-0 overflow-hidden' : 'scale-x-100 opacity-100'"
-        >{{ site.name }}</span>
+        >{{ site.name }}
+        </span>
       </RouterLink>
 
       <div class="flex-1" />

@@ -7,40 +7,26 @@ interface Entry {
 
 const entries: Entry[] = [
   {
-    date: 'March 2022',
-    title: 'Founded',
+    date: 'February 2020',
+    title: 'Problem and formulation',
     body:
-      'Numstore began as an internal tool at a quantitative research lab — a numerical file format faster than every off-the-shelf option. Two engineers spun it out as an independent company.',
+        'Numstore began as a pain point to the fact that there are no databases for numerical data. Numpy arrays, signals, large complex datasets can\'t easily be stored in a database.',
   },
   {
-    date: 'October 2022',
-    title: 'Seed round',
+    date: 'February 2025',
+    title: 'First Ideas',
     body:
-      'Raised a $4.2M seed led by Inflection Capital with participation from a group of operators from the storage and database industry. First three hires joined the same month.',
+      'The idea of making a B+Tree into a rope was formulated and initial work was made to design a proof of concept app',
   },
   {
-    date: 'July 2023',
-    title: 'First production release',
-    body:
-      'Cut Numstore 1.0. A telemetry team running ~3PB on Numstore in production confirmed our design assumptions — and gave us our first publicly citable benchmark.',
+    date: 'December 2025',
+    title: 'V0 Works',
+    body: 'Numstore as a concept worked - with a notably overengineered / poorly implemented version of ARIES that was hard to reason about, but it worked',
   },
   {
-    date: 'May 2024',
-    title: 'Series A',
-    body:
-      'Closed a $22M Series A led by Northbridge Ventures. Opened our second office, expanded engineering across two timezones, and started building Numstore Enterprise.',
-  },
-  {
-    date: 'November 2024',
-    title: 'Partnership with Helion Labs',
-    body:
-      'Helion Labs standardized on Numstore for their fusion-simulation data lake — 12PB of dense numerical arrays under continuous query.',
-  },
-  {
-    date: 'March 2026',
-    title: 'Numstore Enterprise GA',
-    body:
-      'Numstore Enterprise reached general availability with SOC 2 Type II, multi-region replication, and 24/7 support. SmartFiles became its own standalone open-source release.',
+    date: 'Febuary 2026',
+    title: 'First open source release of Numstore',
+    body: 'Released version 1.0 of numstore to the world on github',
   },
 ]
 </script>

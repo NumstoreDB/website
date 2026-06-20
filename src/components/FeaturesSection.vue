@@ -9,29 +9,25 @@ interface Pillar {
 const pillars: Pillar[] = [
   {
     title: 'Performance',
-    body:
-      'Vectorized scans, columnar SIMD primitives, and a query planner that prefers mechanical sympathy over magic. Numstore is built to saturate NVMe and to keep CPU caches warm.',
+    body: '',
     metric: '8.4M',
     metricLabel: 'writes/sec on commodity NVMe',
   },
   {
     title: 'Consistency',
-    body:
-      'Strict serializability for writes, snapshot isolation for reads. Numstore commits with a deterministic WAL and replicates with a verified consensus log — no ambiguity about what is durable.',
+    body: 'Strict serializability for writes',
     metric: 'Strict-1SR',
     metricLabel: 'across replicas, by default',
   },
   {
-    title: 'Availability',
-    body:
-      'Multi-replica clusters tolerate node loss with sub-second failover. Reads can be served from any replica with bounded staleness, or strict-leader when you need it.',
-    metric: '< 800ms',
-    metricLabel: 'measured failover, p99',
+    title: 'No dynamic memory allocation',
+    body: '',
+    metric: '11 nines',
+    metricLabel: 'modeled annual durability',
   },
   {
-    title: 'Durability',
-    body:
-      'Every byte is checksummed end-to-end with BLAKE3. Chunks are content-addressed, replicated, and verified continuously by a background scrubber that catches bitrot before it spreads.',
+    title: 'A Testing infrastructure',
+    body: '',
     metric: '11 nines',
     metricLabel: 'modeled annual durability',
   },
@@ -44,11 +40,8 @@ const pillars: Pillar[] = [
       <div class="max-w-2xl">
         <div class="eyebrow">Why Numstore</div>
         <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          The four pillars we refuse to trade.
+          The four pillars numstore refuses to trade.
         </h2>
-        <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
-          Most databases let you pick two. We engineered Numstore so you do not have to.
-        </p>
       </div>
 
       <div class="mt-14 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2">

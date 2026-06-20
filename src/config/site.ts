@@ -3,11 +3,11 @@ export const site = {
   tagline: 'Numerical storage, engineered.',
   description:
     'Numstore is a numerical storage engine purpose-built for scientific, analytical, and time-series workloads.',
-  github: { owner: 'numstore', repo: 'numstore' },
+  github: { owner: 'NumstoreDB', repo: 'Numstore' },
   youtube: { channelId: 'UC_PLACEHOLDER', handle: '@numstore' },
   linkedin: 'https://www.linkedin.com/company/numstore',
   external: {
-    docs: 'https://docs.numstore.com',
+    docs: 'https://numstore.org',
     blog: 'https://blog.numstore.com',
   },
   contact: {
@@ -18,13 +18,13 @@ export const site = {
     {
       id: 'smartfiles',
       name: 'SmartFiles',
-      tagline: 'A self-describing on-disk format for numerical arrays.',
+      tagline: 'An ACID file with first class support for inner mutations',
       blurb:
-        'The columnar foundation everything else builds on. Chunked, compressed, content-addressed.',
+        'Smartfiles is an ACID file - meaning it\'s identical to a normal file, but you can pull the plug on your computer and any query to read, write, insert or remove data either finished or didn\'t, there are no half-writes. Also, Smartfiles dwarfs the speed of normal files for inserting or removing data into the middle of the file, something text editors, video editors, datasets all often require' ,
       features: [
-        'Self-describing schema with zero-copy reads',
-        'Append-only chunks with content-addressed integrity',
-        'Native vectorized scans across mmap or io_uring',
+        'Store multiple named variables with-in one "smart" file',
+        'Read, write or remove "stride-ed" data - skipping every nth byte',
+        'Zero dependencies - builds into linux mac and windows machine code',
       ],
       accent: 'smartfiles',
       href: 'https://docs.numstore.com/smartfiles',
@@ -32,13 +32,14 @@ export const site = {
     {
       id: 'numstore',
       name: 'Numstore',
-      tagline: 'The open-source numerical storage engine.',
+      tagline: 'An ACID database for storing numerical arrays',
       blurb:
-        'A single-binary database for numerical workloads, built on SmartFiles. MIT-licensed, embedded or networked.',
+        'Numstore is a database for numerical arrays. numpy, pytorch, tensorflow numerical arrays, Numstore stores this type of data with the same guarantees of inner mutations as Smartfiles. Numstore is Smartfiles with a rich type system built on top',
       features: [
-        'Single-binary deploy, embedded or over the wire',
-        'ACID writes with deterministic crash recovery',
-        'SQL-compatible query layer with vectorized execution',
+        'Store ints, floats, complex numbers, arrays of primitive types, structs, unions in a single file database',
+        'Read, write or remove "stride-ed" data - skipping every nth byte',
+        'Zero dependencies - builds into linux mac and windows machine code',
+        'PyNumstore - a numstore python binding that offers an ACID storage engine for numpy arrays',
       ],
       accent: 'numstore',
       href: 'https://docs.numstore.com/numstore',
@@ -48,11 +49,14 @@ export const site = {
       name: 'Numstore Enterprise',
       tagline: 'Managed Numstore for production teams.',
       blurb:
-        'Multi-tenant control plane, SSO, audit logging, and 24/7 support. Run it yourself or let us run it.',
+        'I took all the lessons I learned from Numstore and Smartfiles and re wrote an industry performant distributed, multi file database called Numstore-Enterprise',
       features: [
-        'Managed multi-region replication and failover',
-        'SOC 2 controls, SSO/SAML, fine-grained RBAC',
-        'Dedicated support engineers with SLA-backed response',
+        'Supports the "just bytes" formulation that smartfiles does so well',
+        'Distributed enterprise ready database',
+        'Multi file',
+        'Multi node',
+        'Memory safe - written in rust with all the mistakes made in Numstore and Smartfiles remediated',
+        'Unreleased - stay tuned - estimated date: December 2026',
       ],
       accent: 'enterprise',
       href: 'mailto:hello@numstore.com?subject=Numstore%20Enterprise',

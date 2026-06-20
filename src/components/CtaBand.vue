@@ -4,7 +4,7 @@ import { site } from '../config/site'
 </script>
 
 <template>
-  <section class="py-24 md:py-32">
+  <section class="border-y border-border bg-surface/30 py-16">
     <div class="container-page">
       <div class="relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-elevated via-surface to-bg p-10 md:p-16">
         <div aria-hidden="true" class="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-accent/15 blur-3xl" />

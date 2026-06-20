@@ -29,11 +29,11 @@ const accentClasses: Record<string, { ring: string; text: string; bg: string; bo
       <div class="max-w-2xl">
         <div class="eyebrow">Products</div>
         <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Three products. One foundation.
+          Three libraries.
         </h2>
         <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
-          Start with the file format, run the engine yourself, or let our team operate it for you.
-          Every layer ships with the guarantees the layer below it makes.
+          Start with just a single ACID single file database. Then work your way to a numerical database called Numstore.
+          If you still need more performance, go to Numstore Enterprise (a work in progress database).
         </p>
       </div>
 

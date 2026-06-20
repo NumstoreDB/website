@@ -4,14 +4,7 @@ withDefaults(defineProps<{ heading?: string }>(), {
 })
 
 const logos = [
-  { name: 'Helion Labs', initials: 'HL' },
-  { name: 'Argo Quant', initials: 'AQ' },
-  { name: 'NorthFleet', initials: 'NF' },
-  { name: 'Cascade AI', initials: 'CA' },
-  { name: 'Veridian', initials: 'VR' },
-  { name: 'Polaron', initials: 'PO' },
-  { name: 'Stellaris', initials: 'ST' },
-  { name: 'Kepler Bio', initials: 'KB' },
+  { name: 'You', initials: '?' },
 ]
 </script>
 
