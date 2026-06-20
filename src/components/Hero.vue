@@ -9,13 +9,14 @@ import { site } from '../config/site'
       class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent -z-10"
     />
 
-    <div class="container-page grid items-center gap-16 py-20 md:grid-cols-12 md:py-28 lg:py-32">
-      <div class="md:col-span-7">
+    <div class="container-page py-20 md:py-28 lg:py-32">
+      <div class="max-w-3xl">
         <div class="eyebrow">
           <span class="h-1.5 w-1.5 rounded-full bg-secondary" />
           v1.1.3
         </div>
-        <h1 class="mt-6 font-display text-secondary text-4xl font-bold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl lg:text-7xl">Numstore<br />
+        <h1 class="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl lg:text-7xl">
+          Numstore
         </h1>
         <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
           Numstore is a database engine purpose built for arrays.
@@ -34,13 +35,16 @@ import { site } from '../config/site'
         </div>
       </div>
 
-      <div class="md:col-span-5">
-
+      <figure class="mt-16 md:mt-20">
         <img
-            class="relative w-full max-w-md mx-auto"
-            src="/p6_bar_time_vs_file_size_log.png"
-            aria-hidden="true" alt="Graph of Numstore results"/>
-      </div>
+          class="block w-full rounded-xl border border-border bg-surface"
+          src="/p6_bar_time_vs_file_size_log.png"
+          alt="Benchmark: Numstore write time vs. file size on a log scale"
+        />
+        <figcaption class="mt-3 text-center text-xs text-muted">
+          Write time vs. file size, log scale — Numstore vs. baselines.
+        </figcaption>
+      </figure>
     </div>
   </section>
 </template>
