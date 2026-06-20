@@ -3,7 +3,6 @@ import { onMounted, onBeforeUnmount, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { site } from '../config/site'
 import GitHubStars from './GitHubStars.vue'
-import YouTubeSubs from './YouTubeSubs.vue'
 
 const scrolled = ref(false)
 const mobileOpen = ref(false)

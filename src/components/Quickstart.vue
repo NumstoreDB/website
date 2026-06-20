@@ -29,22 +29,53 @@ const products: Product[] = [
         id: 'c',
         label: 'C',
         install: 'curl -L https://get.numstore.com/smartfiles | sh',
-        code: `#include <smartfiles.h>
+        code: `#include <stdio.h>
+#include <string.h>
 
-int main(void) {
-  sf_file *f = sf_open("data.sf", SF_RDWR);
+#include "smartfiles.h"
 
-  double v = 0.41;
-  sf_append(f, &v, sizeof v);
+static char buf[64];
 
-  // Insert into the middle — Smartfiles makes this fast.
-  sf_insert(f, /*offset*/ 0, &v, sizeof v);
+int
+main (void)
+{
+  // Open a database
+  smfile_t *smf = smfile_open ("sample1_crud");
+  smfile_remove (smf, NULL, 0, SMF_END);
 
-  // Strided read: every 8th double.
-  double out[16];
-  sf_read_strided(f, out, sizeof(double), 8 * sizeof(double), 16);
+  // Insert data at offset 0
+  const char *initial = "The quick brown fox jumps over the lazy dog";
+  smfile_insert (smf, initial, 0, strlen (initial));
 
-  sf_close(f);
+  // Insert data at offset 34
+  const char *adverb = " really";
+  smfile_insert (smf, adverb, 34, strlen (adverb));
+
+  sb_size n = smfile_read (smf, buf, 0, SMF_END);
+  printf ("after insert:  \\"%.*s\\"\\n", (int)n, buf);
+
+  // Overwrite data at offset 16
+  smfile_write (smf, "cat", 16, 3);
+
+  n = smfile_read (smf, buf, 0, SMF_END);
+  printf ("after write:   \\"%.*s\\"\\n", (int)n, buf);
+
+  // Execute a transaction
+  smfile_begin (smf);
+  {
+    // Remove data
+    n = smfile_remove (smf, buf, 34, 7);
+    printf ("removed:       \\"%.*s\\"\\n", (int)n, buf);
+
+    n = smfile_read (smf, buf, 0, SMF_END);
+    printf ("after remove (inside txn):  \\"%.*s\\"\\n", (int)n, buf);
+  }
+  smfile_rollback (smf);
+
+  n = smfile_read (smf, buf, 0, SMF_END);
+  printf ("after rollback:  \\"%.*s\\"\\n", (int)n, buf);
+
+  return smfile_close (smf);
 }`,
       },
       {
@@ -76,28 +107,6 @@ fn main() -> smartfiles::Result<()> {
     let chunk: Vec<u8> = f.read_strided(0, 8, 16)?;
     println!("read {} bytes", chunk.len());
     Ok(())
-}`,
-      },
-      {
-        id: 'go',
-        label: 'Go',
-        install: 'go get github.com/numstore/smartfiles-go',
-        code: `package main
-
-import (
-    "fmt"
-    "github.com/numstore/smartfiles-go"
-)
-
-func main() {
-    f, _ := smartfiles.Open("data.sf")
-    defer f.Close()
-
-    f.Append([]byte{0, 1, 2, 3})
-    f.Insert(0, []byte{42})
-
-    chunk, _ := f.ReadStrided(0, 8, 16)
-    fmt.Printf("read %d bytes\\n", len(chunk))
 }`,
       },
     ],
@@ -293,7 +302,7 @@ async function copyCode() {
       <div class="max-w-2xl">
         <div class="eyebrow">Quickstart</div>
         <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Read and write in five lines.
+          Numstore is ready in a few lines
         </h2>
         <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
           Pick a product, pick a language. The same shape everywhere —

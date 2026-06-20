@@ -8,7 +8,7 @@ export const site = {
   linkedin: 'https://www.linkedin.com/company/numstore',
   external: {
     docs: 'https://numstore.org',
-    blog: 'https://blog.numstore.com',
+    blog: 'https://theolincke.com',
   },
   contact: {
     email: 'hello@numstore.com',

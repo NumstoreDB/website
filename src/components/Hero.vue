@@ -19,7 +19,10 @@ import { site } from '../config/site'
           Numstore
         </h1>
         <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
-          Numstore is a database engine purpose built for arrays.
+          Numstore is a database engine purpose built for bytes and arrays.
+          Also, Numstore is a fully ACID file - meaning <span class="text-accent-soft">anything can be a database.</span>
+        </p>
+        <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
         </p>
 
         <div class="mt-10 flex flex-wrap gap-3">
@@ -42,7 +45,11 @@ import { site } from '../config/site'
           alt="Benchmark: Numstore write time vs. file size on a log scale"
         />
         <figcaption class="mt-3 text-center text-xs text-muted">
-          Write time vs. file size, log scale — Numstore vs. baselines.
+          Numstore is fast. This plot shows how long it takes to punch a hole in the middle of a standard file
+          and write data compared to the same operation done using Numstore (using the "Smartfiles" api in purple).
+          Numstore's inner file modification algorithm is first class, running
+          in logarithmic time with respect to the original file size. Read more about it
+          <a href="https://theolincke.com/blog/13_inner_inserts" class="underline text-secondary">here</a>.
         </figcaption>
       </figure>
     </div>
