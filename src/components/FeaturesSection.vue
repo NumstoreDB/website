@@ -67,7 +67,7 @@ const pillars: Pillar[] = [
             {{ p.body }}
           </p>
           <div class="mt-8 flex items-end gap-3 border-t border-border pt-6">
-            <div class="font-display text-3xl font-bold text-accent tabular-nums md:text-4xl">
+            <div class="font-display text-3xl font-bold text-accent-soft tabular-nums md:text-4xl">
               {{ p.metric }}
             </div>
             <div class="pb-1 text-xs text-muted">

@@ -43,10 +43,10 @@ function closeMobile() {
           class="h-7 w-7 shrink-0"
           aria-hidden="true"
         >
-          <rect width="32" height="32" rx="7" fill="#0a0a0a" />
+          <rect width="32" height="32" rx="7" fill="#1c3a7a" />
           <path
             d="M9 22V10l14 12V10"
-            stroke="#f59e0b"
+            stroke="#ffffff"
             stroke-width="2.4"
             stroke-linecap="round"
             stroke-linejoin="round"

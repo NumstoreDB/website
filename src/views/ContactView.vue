@@ -44,7 +44,7 @@ const steps = [
             <h2 class="font-display text-2xl font-semibold tracking-tight">What happens next?</h2>
             <ol class="mt-6 space-y-6">
               <li v-for="(s, i) in steps" :key="s.title" class="flex gap-4">
-                <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent/10 font-mono text-sm font-semibold text-accent">
+                <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent/10 font-mono text-sm font-semibold text-accent-soft">
                   {{ i + 1 }}
                 </span>
                 <div>
@@ -65,7 +65,7 @@ const steps = [
               <p class="text-sm text-muted">Prefer email?</p>
               <a
                 :href="`mailto:${site.contact.email}`"
-                class="mt-1 inline-flex items-center gap-2 font-mono text-sm font-medium text-accent hover:text-accent-soft"
+                class="mt-1 inline-flex items-center gap-2 font-mono text-sm font-medium text-accent-soft hover:text-white"
               >
                 <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect x="3" y="5" width="18" height="14" rx="2" />

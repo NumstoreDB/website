@@ -17,14 +17,19 @@ export default {
         fg: '#e7e7ea',
         muted: '#9a9aa3',
         accent: {
-          DEFAULT: '#f59e0b',
-          soft: '#fbbf24',
-          deep: '#b45309',
+          DEFAULT: '#1c3a7a',
+          soft: '#4a6cd9',
+          deep: '#142a5a',
+        },
+        secondary: {
+          DEFAULT: '#c0391b',
+          soft: '#e04a2c',
+          deep: '#8e2613',
         },
         product: {
-          smartfiles: '#38bdf8',
-          numstore: '#f59e0b',
-          enterprise: '#a78bfa',
+          smartfiles: '#4a6cd9',
+          numstore: '#1c3a7a',
+          enterprise: '#c0391b',
         },
       },
       maxWidth: {

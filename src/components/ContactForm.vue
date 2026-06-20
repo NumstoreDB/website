@@ -89,28 +89,28 @@ async function onSubmit() {
       <form class="mt-8 grid gap-5" novalidate @submit.prevent="onSubmit">
         <div class="grid gap-5 sm:grid-cols-2">
           <div>
-            <label for="firstName" class="block text-xs font-medium text-muted">First name <span class="text-accent">*</span></label>
+            <label for="firstName" class="block text-xs font-medium text-muted">First name <span class="text-accent-soft">*</span></label>
             <input
               id="firstName"
               v-model="form.firstName"
               type="text"
               autocomplete="given-name"
               required
-              class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent-soft focus:outline-none focus:ring-1 focus:ring-accent-soft"
               :aria-invalid="!!errors.firstName"
               :aria-describedby="errors.firstName ? 'firstName-error' : undefined"
             />
             <p v-if="errors.firstName" id="firstName-error" class="mt-1 text-xs text-red-400">{{ errors.firstName }}</p>
           </div>
           <div>
-            <label for="lastName" class="block text-xs font-medium text-muted">Last name <span class="text-accent">*</span></label>
+            <label for="lastName" class="block text-xs font-medium text-muted">Last name <span class="text-accent-soft">*</span></label>
             <input
               id="lastName"
               v-model="form.lastName"
               type="text"
               autocomplete="family-name"
               required
-              class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent-soft focus:outline-none focus:ring-1 focus:ring-accent-soft"
               :aria-invalid="!!errors.lastName"
               :aria-describedby="errors.lastName ? 'lastName-error' : undefined"
             />
@@ -119,14 +119,14 @@ async function onSubmit() {
         </div>
 
         <div>
-          <label for="email" class="block text-xs font-medium text-muted">Work email <span class="text-accent">*</span></label>
+          <label for="email" class="block text-xs font-medium text-muted">Work email <span class="text-accent-soft">*</span></label>
           <input
             id="email"
             v-model="form.email"
             type="email"
             autocomplete="email"
             required
-            class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent-soft focus:outline-none focus:ring-1 focus:ring-accent-soft"
             :aria-invalid="!!errors.email"
             :aria-describedby="errors.email ? 'email-error' : undefined"
           />
@@ -141,7 +141,7 @@ async function onSubmit() {
               v-model="form.company"
               type="text"
               autocomplete="organization"
-              class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent-soft focus:outline-none focus:ring-1 focus:ring-accent-soft"
             />
           </div>
           <div>
@@ -151,18 +151,18 @@ async function onSubmit() {
               v-model="form.jobTitle"
               type="text"
               autocomplete="organization-title"
-              class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+              class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent-soft focus:outline-none focus:ring-1 focus:ring-accent-soft"
             />
           </div>
         </div>
 
         <div>
-          <label for="interest" class="block text-xs font-medium text-muted">What are you looking for? <span class="text-accent">*</span></label>
+          <label for="interest" class="block text-xs font-medium text-muted">What are you looking for? <span class="text-accent-soft">*</span></label>
           <select
             id="interest"
             v-model="form.interest"
             required
-            class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg focus:border-accent-soft focus:outline-none focus:ring-1 focus:ring-accent-soft"
             :aria-invalid="!!errors.interest"
             :aria-describedby="errors.interest ? 'interest-error' : undefined"
           >
@@ -178,7 +178,7 @@ async function onSubmit() {
             id="message"
             v-model="form.message"
             rows="5"
-            class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+            class="mt-1.5 w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm text-fg placeholder:text-muted/60 focus:border-accent-soft focus:outline-none focus:ring-1 focus:ring-accent-soft"
             placeholder="Workloads, scale, current stack, timelines — whatever helps us help you."
           />
         </div>
@@ -206,7 +206,7 @@ async function onSubmit() {
 
     <div v-else class="py-10 text-center">
       <div class="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent/10">
-        <svg viewBox="0 0 24 24" class="h-6 w-6 text-accent" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" class="h-6 w-6 text-accent-soft" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M20 6L9 17l-5-5" />
         </svg>
       </div>
@@ -214,7 +214,7 @@ async function onSubmit() {
       <p class="mt-2 text-sm text-muted">
         We will get in touch with you shortly.
       </p>
-      <RouterLink to="/" class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent-soft">
+      <RouterLink to="/" class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent-soft hover:text-white">
         ← Back to home
       </RouterLink>
     </div>

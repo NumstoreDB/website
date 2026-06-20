@@ -30,7 +30,7 @@
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg rounded;
+    @apply outline-none ring-2 ring-accent-soft ring-offset-2 ring-offset-bg rounded;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -53,7 +53,7 @@
   }
 
   .btn-primary {
-    @apply btn bg-accent text-bg hover:bg-accent-soft;
+    @apply btn bg-accent text-white hover:bg-accent-soft;
   }
 
   .btn-secondary {

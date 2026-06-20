@@ -13,7 +13,7 @@ import { site } from '../config/site'
           <div class="eyebrow">About</div>
           <h1 class="mt-6 font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
             We are building the storage layer
-            <span class="text-accent">numerical workloads deserve.</span>
+            <span class="text-accent-soft">numerical workloads deserve.</span>
           </h1>
           <p class="mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
             Most databases are built for rows of business records. Numstore is built for arrays of numbers —
