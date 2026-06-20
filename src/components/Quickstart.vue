@@ -49,7 +49,11 @@ const products: Product[] = [
       {
         id: 'c',
         label: 'C',
-        install: 'curl -L https://get.numstore.com/smartfiles | sh',
+        install: `git clone https://${GH}/NumstoreDB/Numstore
+cd Numstore/src
+# Edit main.c here
+gcc *.c -o main
+./main`,
         code: `#include <stdio.h>
 #include <string.h>
 
@@ -434,14 +438,16 @@ const highlightedInstall = computed(() =>
           </button>
         </div>
 
-        <div class="grid gap-px bg-border md:grid-cols-[1fr_2fr]">
+        <div class="grid gap-px bg-border">
           <div class="bg-bg p-5">
-            <div class="font-mono text-[10px] uppercase tracking-widest text-muted">Install</div>
-            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-relaxed"><code class="hljs language-bash" v-html="highlightedInstall" /></pre>
-            <p class="mt-6 text-xs leading-relaxed text-muted">{{ currentProduct.blurb }}</p>
+            <div class="flex items-baseline justify-between gap-3">
+              <span class="font-mono text-[10px] uppercase tracking-widest text-muted">Setup</span>
+              <span class="text-xs leading-relaxed text-muted">{{ currentProduct.blurb }}</span>
+            </div>
+            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6]"><code class="hljs language-bash" v-html="highlightedInstall" /></pre>
           </div>
           <div class="bg-bg p-5">
-            <div class="font-mono text-[10px] uppercase tracking-widest text-muted">Example</div>
+            <div class="font-mono text-[10px] uppercase tracking-widest text-muted">Code</div>
             <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6]"><code :class="['hljs', `language-${currentExample.id}`]" v-html="highlightedCode" /></pre>
           </div>
         </div>
