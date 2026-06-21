@@ -7,7 +7,7 @@ export const site = {
   youtube: { channelId: 'UC_PLACEHOLDER', handle: '@numstore' },
   linkedin: 'https://www.linkedin.com/company/numstore',
   external: {
-    docs: 'https://numstore.org',
+    docs: 'https://docs.numstore.org',
     blog: 'https://theolincke.com',
   },
   contact: {

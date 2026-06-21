@@ -57,6 +57,7 @@ gcc *.c -o main
         code: `#include <stdio.h>
 #include <string.h>
 
+// Smartfiles is a single header
 #include "smartfiles.h"
 
 static char buf[64];
@@ -72,24 +73,28 @@ main (void)
   const char *initial = "The quick brown fox jumps over the lazy dog";
   smfile_insert (smf, initial, 0, strlen (initial));
 
-  // Insert data at offset 34
-  const char *adverb = " really";
-  smfile_insert (smf, adverb, 34, strlen (adverb));
-
+  // Read that data (all of it)
   sb_size n = smfile_read (smf, buf, 0, SMF_END);
   printf ("after insert:  \\"%.*s\\"\\n", (int)n, buf);
-
-  // Overwrite data at offset 16
-  smfile_write (smf, "cat", 16, 3);
-
-  n = smfile_read (smf, buf, 0, SMF_END);
-  printf ("after write:   \\"%.*s\\"\\n", (int)n, buf);
 
   // Execute a transaction
   smfile_begin (smf);
   {
-    // Remove data
-    n = smfile_remove (smf, buf, 34, 7);
+    // Insert data at offset 34
+    const char *adverb = " really";
+    smfile_insert (smf, adverb, 34, strlen (adverb));
+
+    n = smfile_read (smf, buf, 0, SMF_END);
+    printf ("after insert:  \\"%.*s\\"\\n", (int)n, buf);
+
+    // Overwrite data at offset 16
+    smfile_write (smf, "cat", 16, 3);
+
+    n = smfile_read (smf, buf, 0, SMF_END);
+    printf ("after write:   \\"%.*s\\"\\n", (int)n, buf);
+
+    // Remove data starting at offset
+    n = smfile_remove (smf, buf, 4, 6);
     printf ("removed:       \\"%.*s\\"\\n", (int)n, buf);
 
     n = smfile_read (smf, buf, 0, SMF_END);
