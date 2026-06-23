@@ -3,7 +3,6 @@ import { computed, ref } from 'vue'
 import hljs from 'highlight.js/lib/core'
 import bash from 'highlight.js/lib/languages/bash'
 import c from 'highlight.js/lib/languages/c'
-import go from 'highlight.js/lib/languages/go'
 import python from 'highlight.js/lib/languages/python'
 import rust from 'highlight.js/lib/languages/rust'
 // github-dark gives us colors close to the rest of the site
