@@ -5,9 +5,6 @@ import bash from 'highlight.js/lib/languages/bash'
 import c from 'highlight.js/lib/languages/c'
 import python from 'highlight.js/lib/languages/python'
 import rust from 'highlight.js/lib/languages/rust'
-// github-dark gives us colors close to the rest of the site
-// without needing a custom theme. We override the background
-// below so the panel blends with our surface.
 import 'highlight.js/styles/github-dark.css'
 
 hljs.registerLanguage('bash', bash)
