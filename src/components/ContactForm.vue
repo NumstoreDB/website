@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { reactive, ref, computed } from 'vue'
-import { RouterLink } from 'vue-router'
 
 interface ContactPayload {
   firstName: string
@@ -214,9 +213,9 @@ async function onSubmit() {
       <p class="mt-2 text-sm text-muted">
         We will get in touch with you shortly.
       </p>
-      <RouterLink to="/" class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent-soft hover:text-white">
-        ← Back to home
-      </RouterLink>
+      <a href="#" class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent-soft hover:text-white">
+        ↑ Back to top
+      </a>
     </div>
   </div>
 </template>

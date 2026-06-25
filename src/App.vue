@@ -4,6 +4,7 @@ import AppFooter from './components/AppFooter.vue'
 import Hero from './components/Hero.vue'
 import Quickstart from './components/Quickstart.vue'
 import ProductsSection from './components/ProductsSection.vue'
+import ContactSection from './components/ContactSection.vue'
 </script>
 
 <template>
@@ -13,6 +14,7 @@ import ProductsSection from './components/ProductsSection.vue'
       <Hero />
       <Quickstart />
       <ProductsSection />
+      <ContactSection />
     </main>
     <AppFooter />
   </div>

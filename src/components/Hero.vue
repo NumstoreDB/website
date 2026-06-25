@@ -10,7 +10,8 @@ import { site } from '../config/site'
           Numstore
         </h1>
         <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
-          A database engine purpose-built for bytes and arrays. Numstore files are fully ACID —
+          A database engine purpose-built for bytes and arrays.
+          Numstore files are <span class="text-accent-soft font-semibold">fully ACID</span> —
           reads, writes, inserts, and removes either complete or don't happen at all.
         </p>
 

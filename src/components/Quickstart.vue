@@ -471,7 +471,7 @@ const highlightedInstall = computed(() =>
 </script>
 
 <template>
-  <section class="border-y border-border bg-surface/30 py-20 md:py-28">
+  <section id="quickstart" class="border-y border-border bg-surface/30 py-20 md:py-28">
     <div class="container-page">
       <div class="overflow-hidden rounded-xl border border-border bg-bg shadow-2xl shadow-black/40">
         <div

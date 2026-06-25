@@ -24,7 +24,7 @@ const accentClasses: Record<string, { ring: string; text: string; bg: string; bo
 </script>
 
 <template>
-  <section id="products" class="border-y border-border bg-surface/40 py-24 md:py-32">
+  <section id="products" class="border-y border-border bg-surface/40 py-16 md:py-24">
     <div class="container-page">
       <div class="grid gap-6 md:grid-cols-3">
         <article

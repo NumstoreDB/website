@@ -37,6 +37,10 @@ onBeforeUnmount(() => {
       <div class="flex-1" />
 
       <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+        <a href="#quickstart" class="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-fg">Quickstart</a>
+        <a href="#products" class="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-fg">Products</a>
+        <a href="#contact" class="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-fg">Contact</a>
+        <span class="mx-1 select-none text-border">|</span>
         <a
           :href="site.external.docs"
           target="_blank"
@@ -86,6 +90,10 @@ onBeforeUnmount(() => {
         class="border-t border-border bg-bg md:hidden"
       >
         <div class="container-page flex flex-col gap-1 py-4">
+          <a href="#quickstart" class="rounded-md px-3 py-3 text-base font-medium text-fg hover:bg-elevated" @click="mobileOpen = false">Quickstart</a>
+          <a href="#products" class="rounded-md px-3 py-3 text-base font-medium text-fg hover:bg-elevated" @click="mobileOpen = false">Products</a>
+          <a href="#contact" class="rounded-md px-3 py-3 text-base font-medium text-fg hover:bg-elevated" @click="mobileOpen = false">Contact</a>
+          <div class="my-2 h-px bg-border" />
           <a
             :href="site.external.docs"
             target="_blank"
