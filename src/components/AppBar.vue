@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
 import { site } from '../config/site'
 import GitHubStars from './GitHubStars.vue'
 
 const scrolled = ref(false)
 const mobileOpen = ref(false)
-const route = useRoute()
 
 function onScroll() {
   scrolled.value = window.scrollY > 12
@@ -20,10 +18,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', onScroll)
 })
-
-function closeMobile() {
-  mobileOpen.value = false
-}
 </script>
 
 <template>
@@ -32,21 +26,13 @@ function closeMobile() {
     :class="scrolled ? 'py-1' : 'py-2'"
   >
     <div class="container-page flex items-center gap-4" :class="scrolled ? 'h-12' : 'h-16'">
-      <RouterLink
-        to="/"
-        class="flex items-center gap-2 font-display text-lg font-bold tracking-tight text-fg"
-        @click="closeMobile"
-      >
-        <img src="/logo.png"
-             class="h-7 w-7 shrink-0"
-             aria-hidden="true"
-             alt="Logo"/>
+      <div class="flex items-center gap-2 font-display text-lg font-bold tracking-tight text-fg">
+        <img src="/logo.png" class="h-7 w-7 shrink-0" aria-hidden="true" alt="Logo" />
         <span
           class="transition-all duration-200 origin-left"
           :class="scrolled ? 'scale-x-0 opacity-0 w-0 overflow-hidden' : 'scale-x-100 opacity-100'"
-        >{{ site.name }}
-        </span>
-      </RouterLink>
+        >{{ site.name }}</span>
+      </div>
 
       <div class="flex-1" />
 
@@ -56,30 +42,18 @@ function closeMobile() {
           target="_blank"
           rel="noopener"
           class="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-fg"
-        >Documentation</a>
+        >Docs</a>
         <a
           :href="site.external.blog"
           target="_blank"
           rel="noopener"
           class="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-fg"
         >Blog</a>
-        <RouterLink
-          to="/about"
-          class="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-fg"
-          :class="{ 'text-fg': route.path === '/about' }"
-        >About</RouterLink>
       </nav>
 
       <div class="hidden items-center gap-2 md:flex">
         <GitHubStars />
-        <YouTubeSubs />
       </div>
-
-      <div class="hidden md:block">
-        <RouterLink to="/contact" class="btn-primary">Support</RouterLink>
-      </div>
-
-      <RouterLink to="/contact" class="btn-primary md:hidden">Support</RouterLink>
 
       <button
         type="button"
@@ -117,23 +91,17 @@ function closeMobile() {
             target="_blank"
             rel="noopener"
             class="rounded-md px-3 py-3 text-base font-medium text-fg hover:bg-elevated"
-            @click="closeMobile"
-          >Documentation</a>
+            @click="mobileOpen = false"
+          >Docs</a>
           <a
             :href="site.external.blog"
             target="_blank"
             rel="noopener"
             class="rounded-md px-3 py-3 text-base font-medium text-fg hover:bg-elevated"
-            @click="closeMobile"
+            @click="mobileOpen = false"
           >Blog</a>
-          <RouterLink
-            to="/about"
-            class="rounded-md px-3 py-3 text-base font-medium text-fg hover:bg-elevated"
-            @click="closeMobile"
-          >About</RouterLink>
           <div class="mt-2 flex items-center gap-2 px-1">
             <GitHubStars />
-            <YouTubeSubs />
           </div>
         </div>
       </div>

@@ -473,18 +473,7 @@ const highlightedInstall = computed(() =>
 <template>
   <section class="border-y border-border bg-surface/30 py-20 md:py-28">
     <div class="container-page">
-      <div class="max-w-2xl">
-        <div class="eyebrow">Quickstart</div>
-        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Numstore is ready in a few lines
-        </h2>
-        <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
-          Pick a product, pick a language. The same shape everywhere —
-          open it, write some bytes or values, read them back.
-        </p>
-      </div>
-
-      <div class="mt-10 overflow-hidden rounded-xl border border-border bg-bg shadow-2xl shadow-black/40">
+      <div class="overflow-hidden rounded-xl border border-border bg-bg shadow-2xl shadow-black/40">
         <div
             class="flex flex-wrap items-center gap-2 border-b border-border bg-surface/60 p-2"
             role="tablist"
@@ -588,6 +577,7 @@ const highlightedInstall = computed(() =>
       </div>
     </div>
   </section>
+
 </template>
 
 <style scoped>

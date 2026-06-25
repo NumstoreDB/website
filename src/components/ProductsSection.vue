@@ -26,18 +26,7 @@ const accentClasses: Record<string, { ring: string; text: string; bg: string; bo
 <template>
   <section id="products" class="border-y border-border bg-surface/40 py-24 md:py-32">
     <div class="container-page">
-      <div class="max-w-2xl">
-        <div class="eyebrow">Products</div>
-        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Three libraries.
-        </h2>
-        <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
-          Start with just a single ACID single file database. Then work your way to a numerical database called Numstore.
-          If you still need more performance, go to Numstore Enterprise (a work in progress database).
-        </p>
-      </div>
-
-      <div class="mt-14 grid gap-6 md:grid-cols-3">
+      <div class="grid gap-6 md:grid-cols-3">
         <article
           v-for="(product, i) in site.products"
           :key="product.id"
@@ -68,9 +57,6 @@ const accentClasses: Record<string, { ring: string; text: string; bg: string; bo
           <h3 class="mt-6 font-display text-2xl font-semibold tracking-tight">
             {{ product.name }}
           </h3>
-          <p class="mt-2 text-sm" :class="accentClasses[product.accent].text">
-            {{ product.tagline }}
-          </p>
           <p class="mt-4 text-sm leading-relaxed text-muted">
             {{ product.blurb }}
           </p>
@@ -91,8 +77,7 @@ const accentClasses: Record<string, { ring: string; text: string; bg: string; bo
             class="mt-8 inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
             :class="accentClasses[product.accent].text"
           >
-            Learn more
-            <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+            Docs →
           </a>
         </article>
       </div>

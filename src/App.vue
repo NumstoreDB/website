@@ -1,30 +1,19 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
 import AppBar from './components/AppBar.vue'
 import AppFooter from './components/AppFooter.vue'
+import Hero from './components/Hero.vue'
+import Quickstart from './components/Quickstart.vue'
+import ProductsSection from './components/ProductsSection.vue'
 </script>
 
 <template>
   <div class="flex min-h-screen flex-col bg-bg text-fg">
     <AppBar />
     <main class="flex-1">
-      <RouterView v-slot="{ Component, route }">
-        <transition name="page" mode="out-in">
-          <component :is="Component" :key="route.fullPath" />
-        </transition>
-      </RouterView>
+      <Hero />
+      <Quickstart />
+      <ProductsSection />
     </main>
     <AppFooter />
   </div>
 </template>
-
-<style>
-.page-enter-active,
-.page-leave-active {
-  transition: opacity 0.2s ease;
-}
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-}
-</style>
