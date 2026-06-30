@@ -1,16 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import hljs from 'highlight.js/lib/core'
-import bash from 'highlight.js/lib/languages/bash'
-import c from 'highlight.js/lib/languages/c'
-import python from 'highlight.js/lib/languages/python'
-import rust from 'highlight.js/lib/languages/rust'
-import 'highlight.js/styles/github-dark.css'
-
-hljs.registerLanguage('bash', bash)
-hljs.registerLanguage('c', c)
-hljs.registerLanguage('python', python)
-hljs.registerLanguage('rust', rust)
+import { useTheme } from '../composables/useTheme'
 
 // Wrap the literal `github.com/...` in our Go example imports so Vite's
 // dev-time dependency scanner doesn't mistake them for real ES imports
@@ -453,21 +443,24 @@ async function copyCode() {
   }
 }
 
-function highlight(code: string, language: string): string {
+// ── Vim HTML code panels ──────────────────────────────────────
+const { isDark } = useTheme()
+
+const codeFrameSrc = computed(() => {
+  const theme = isDark.value ? 'dark' : 'light'
+  // Files live in public/code/{lang}-quickstart-{product}-{theme}.html
+  return `/code/${currentExample.value.id}-quickstart-${currentProduct.value.id}-${theme}.html`
+})
+
+function resizeIframe(e: Event) {
+  const iframe = e.target as HTMLIFrameElement
   try {
-    return hljs.highlight(code, { language, ignoreIllegals: true }).value
+    const h = iframe.contentDocument?.body?.scrollHeight
+    if (h) iframe.style.height = h + 'px'
   } catch {
-    // Unknown language → fall back to plain text (still escaped).
-    return hljs.highlight(code, { language: 'plaintext', ignoreIllegals: true }).value
+    // cross-origin guard (shouldn't happen — same origin)
   }
 }
-
-const highlightedCode = computed(() =>
-    highlight(currentExample.value.code, currentExample.value.id),
-)
-const highlightedInstall = computed(() =>
-    highlight(currentExample.value.install, 'bash'),
-)
 </script>
 
 <template>
@@ -551,10 +544,10 @@ const highlightedInstall = computed(() =>
               <span class="font-mono text-[10px] uppercase tracking-widest text-[#9a9aa3]">Setup</span>
               <span class="text-xs leading-relaxed text-[#9a9aa3]">{{ currentProduct.blurb }}</span>
             </div>
-            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6]"><code class="hljs language-bash" v-html="highlightedInstall" /></pre>
+            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6] text-[#e7e7ea]">{{ currentExample.install }}</pre>
           </div>
-          <div class="bg-[#0a0a0a] p-5">
-            <div class="flex items-center justify-between gap-3">
+          <div class="bg-[#0a0a0a]">
+            <div class="flex items-center justify-between gap-3 px-5 pt-5">
               <span class="font-mono text-[10px] uppercase tracking-widest text-[#9a9aa3]">Code</span>
               <button
                   type="button"
@@ -572,7 +565,16 @@ const highlightedInstall = computed(() =>
                 {{ copied ? 'Copied' : 'Copy' }}
               </button>
             </div>
-            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6]"><code :class="['hljs', `language-${currentExample.id}`]" v-html="highlightedCode" /></pre>
+            <!-- Vim colorscheme HTML: edit public/code/{product}-{lang}-{light|dark}.html -->
+            <iframe
+              :key="codeFrameSrc"
+              :src="codeFrameSrc"
+              class="block w-full border-0"
+              style="height: 200px"
+              scrolling="no"
+              title="Code example"
+              @load="resizeIframe"
+            />
           </div>
         </div>
       </div>

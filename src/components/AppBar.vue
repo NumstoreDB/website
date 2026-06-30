@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref } from 'vue'
 import { site } from '../config/site'
+import { useTheme } from '../composables/useTheme'
 
 const scrolled = ref(false)
 const mobileOpen = ref(false)
-const isDark = ref(false)
+const { isDark } = useTheme()
 
 function onScroll() {
   scrolled.value = window.scrollY > 8
@@ -22,7 +23,6 @@ function toggleTheme() {
 }
 
 onMounted(() => {
-  isDark.value = document.documentElement.classList.contains('dark')
   onScroll()
   window.addEventListener('scroll', onScroll, { passive: true })
 })
