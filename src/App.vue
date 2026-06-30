@@ -5,6 +5,8 @@ import Hero from './components/Hero.vue'
 import Quickstart from './components/Quickstart.vue'
 import VideoSection from './components/VideoSection.vue'
 import ProductsSection from './components/ProductsSection.vue'
+import CustomSection from './components/CustomSection.vue'
+import BuildYourOwnSection from './components/BuildYourOwnSection.vue'
 import WaitlistSection from './components/WaitlistSection.vue'
 </script>
 
@@ -16,6 +18,8 @@ import WaitlistSection from './components/WaitlistSection.vue'
       <Quickstart />
       <VideoSection />
       <ProductsSection />
+      <CustomSection />
+      <BuildYourOwnSection />
       <WaitlistSection />
     </main>
     <AppFooter />

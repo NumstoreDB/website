@@ -32,9 +32,11 @@ onBeforeUnmount(() => {
 })
 
 const navLinks = [
-  { label: 'Quickstart', href: '#quickstart' },
-  { label: 'Products',   href: '#products'   },
-  { label: 'Waitlist',   href: '#waitlist'   },
+  { label: 'Quickstart',  href: '#quickstart'    },
+  { label: 'Libraries',   href: '#products'      },
+  { label: 'Custom',      href: '#custom'        },
+  { label: 'Build own',   href: '#build-your-own'},
+  { label: 'Contact',     href: '#contact'       },
 ]
 
 const socialLinks = [
@@ -172,7 +174,7 @@ const socialLinks = [
     >
       <div v-if="mobileOpen" id="mobile-menu" class="border-t border-border bg-bg md:hidden">
         <div class="container-page flex flex-col py-3">
-          <a v-for="link in navLinks" :key="link.href" :href="link.href" class="px-2 py-3 text-sm font-medium text-fg hover:text-accent-soft" @click="mobileOpen = false">{{ link.label }}</a>
+          <a v-for="link in navLinks" :key="link.href" :href="link.href" class="px-2 py-2.5 text-sm font-medium text-fg hover:text-accent-soft" @click="mobileOpen = false">{{ link.label }}</a>
           <div class="my-2 h-px bg-border" />
           <a :href="site.external.docs" target="_blank" rel="noopener" class="px-2 py-3 text-sm text-muted hover:text-fg" @click="mobileOpen = false">Docs</a>
           <a :href="site.external.blog" target="_blank" rel="noopener" class="px-2 py-3 text-sm text-muted hover:text-fg" @click="mobileOpen = false">Blog</a>
