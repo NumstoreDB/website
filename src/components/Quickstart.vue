@@ -466,10 +466,9 @@ function resizeIframe(e: Event) {
 <template>
   <section id="quickstart" class="border-y border-border bg-surface/30 py-20 md:py-28">
     <div class="container-page">
-      <!-- Code widget is always dark regardless of page theme -->
-      <div class="overflow-hidden rounded-xl border border-[#26262b] bg-[#0a0a0a] shadow-2xl shadow-black/40">
+      <div class="overflow-hidden rounded-xl border border-border bg-bg shadow-sm">
         <div
-            class="flex flex-wrap items-center gap-2 border-b border-[#26262b] bg-[#111113] p-2"
+            class="flex flex-wrap items-center gap-2 border-b border-border bg-surface p-2"
             role="tablist"
             aria-label="Product"
         >
@@ -484,8 +483,8 @@ function resizeIframe(e: Event) {
               class="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors min-h-[40px]"
               :class="
               activeProduct === p.id
-                ? 'bg-[#0a0a0a] text-[#e7e7ea] border border-[#26262b]'
-                : 'text-[#9a9aa3] hover:text-[#e7e7ea] border border-transparent'
+                ? 'bg-bg text-fg border border-border'
+                : 'text-muted hover:text-fg border border-transparent'
             "
               @click="activeProduct = p.id"
           >
@@ -501,7 +500,7 @@ function resizeIframe(e: Event) {
 
         <div
             v-if="currentProduct.wip"
-            class="flex items-start gap-2 border-b border-[#26262b] bg-secondary/5 px-4 py-3 text-xs text-secondary-soft"
+            class="flex items-start gap-2 border-b border-border bg-secondary/5 px-4 py-3 text-xs text-secondary-soft"
             role="status"
         >
           <svg viewBox="0 0 24 24" class="mt-0.5 h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -512,7 +511,7 @@ function resizeIframe(e: Event) {
         </div>
 
         <div
-            class="border-b border-[#26262b] bg-[#111113] px-2"
+            class="border-b border-border bg-surface px-2"
             role="tablist"
             aria-label="Language"
         >
@@ -528,8 +527,8 @@ function resizeIframe(e: Event) {
                 class="relative -mb-px px-4 py-3 text-sm font-medium transition-colors min-h-[44px]"
                 :class="
                 activeLang === ex.id
-                  ? 'text-[#e7e7ea] border-b-2 border-accent-soft'
-                  : 'text-[#9a9aa3] hover:text-[#e7e7ea] border-b-2 border-transparent'
+                  ? 'text-fg border-b-2 border-accent-soft'
+                  : 'text-muted hover:text-fg border-b-2 border-transparent'
               "
                 @click="activeLang = ex.id"
             >
@@ -538,20 +537,20 @@ function resizeIframe(e: Event) {
           </div>
         </div>
 
-        <div class="grid gap-px bg-[#26262b]">
-          <div class="bg-[#0a0a0a] p-5">
+        <div class="grid gap-px bg-border">
+          <div class="bg-bg p-5">
             <div class="flex items-baseline justify-between gap-3">
-              <span class="font-mono text-[10px] uppercase tracking-widest text-[#9a9aa3]">Setup</span>
-              <span class="text-xs leading-relaxed text-[#9a9aa3]">{{ currentProduct.blurb }}</span>
+              <span class="font-mono text-[10px] uppercase tracking-widest text-muted">Setup</span>
+              <span class="text-xs leading-relaxed text-muted">{{ currentProduct.blurb }}</span>
             </div>
-            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6] text-[#e7e7ea]">{{ currentExample.install }}</pre>
+            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6] text-fg">{{ currentExample.install }}</pre>
           </div>
-          <div class="bg-[#0a0a0a]">
+          <div class="bg-bg">
             <div class="flex items-center justify-between gap-3 px-5 pt-5">
-              <span class="font-mono text-[10px] uppercase tracking-widest text-[#9a9aa3]">Code</span>
+              <span class="font-mono text-[10px] uppercase tracking-widest text-muted">Code</span>
               <button
                   type="button"
-                  class="inline-flex h-8 items-center gap-1.5 rounded-md border border-[#26262b] bg-[#111113] px-2.5 text-xs font-medium text-[#9a9aa3] transition-colors hover:text-[#e7e7ea]"
+                  class="inline-flex h-8 items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 text-xs font-medium text-muted transition-colors hover:text-fg"
                   :aria-label="copied ? 'Copied' : 'Copy code'"
                   @click="copyCode"
               >
