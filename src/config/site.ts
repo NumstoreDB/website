@@ -1,18 +1,18 @@
 export const site = {
   name: 'Numstore',
-  tagline: 'Numerical storage, engineered.',
-  description:
-    'Numstore is a numerical storage engine purpose-built for scientific, analytical, and time-series workloads.',
+  description: 'A database engine purpose-built for bytes and arrays.',
   github: { owner: 'NumstoreDB', repo: 'Numstore' },
-  youtube: { channelId: 'UC_PLACEHOLDER', handle: '@numstore' },
-  linkedin: 'https://www.linkedin.com/company/numstore',
-  external: {
-    docs: 'https://docs.numstore.org',
-    blog: 'https://theolincke.com',
-  },
   contact: {
     email: 'hello@numstore.com',
-    supportEmail: 'support@numstore.com',
+  },
+  external: {
+    docs:     'https://docs.numstore.org',
+    blog:     'https://theolincke.com',
+    github:   'https://github.com/NumstoreDB/Numstore',
+    youtube:  'https://www.youtube.com/@numstore',
+    x:        'https://x.com/numstore',
+    discord:  'https://discord.gg/numstore',
+    linkedin: 'https://www.linkedin.com/company/numstore',
   },
   products: [
     {
@@ -20,11 +20,11 @@ export const site = {
       name: 'SmartFiles',
       tagline: 'An ACID file with first class support for inner mutations',
       blurb:
-        'Smartfiles is an ACID file - meaning it\'s identical to a normal file, but you can pull the plug on your computer and any query to read, write, insert or remove data either finished or didn\'t, there are no half-writes. Also, Smartfiles dwarfs the speed of normal files for inserting or removing data into the middle of the file, something text editors, video editors, datasets all often require' ,
+        'Smartfiles is an ACID file — identical to a normal file, but guaranteed: any read, write, insert or remove either completes or doesn\'t. Inner mutations (inserting/removing in the middle of a file) run in O(log n) instead of O(n).',
       features: [
-        'Store multiple named variables with-in one "smart" file',
-        'Read, write or remove "stride-ed" data - skipping every nth byte',
-        'Zero dependencies - builds into linux mac and windows machine code',
+        'Named variables within a single file',
+        'Strided reads and writes — skip every nth byte',
+        'Zero dependencies — C, Python, Rust bindings',
       ],
       accent: 'smartfiles',
       href: 'https://docs.numstore.com/smartfiles',
@@ -32,14 +32,13 @@ export const site = {
     {
       id: 'numstore',
       name: 'Numstore',
-      tagline: 'An ACID database for storing numerical arrays',
+      tagline: 'An ACID database for numerical arrays',
       blurb:
-        'Numstore is a database for numerical arrays. numpy, pytorch, tensorflow numerical arrays, Numstore stores this type of data with the same guarantees of inner mutations as Smartfiles. Numstore is Smartfiles with a rich type system built on top',
+        'Numstore is SmartFiles with a typed column system on top. Store ints, floats, and multi-dimensional arrays with the same ACID guarantees and O(log n) inner-mutation performance.',
       features: [
-        'Store ints, floats, complex numbers, arrays of primitive types, structs, unions in a single file database',
-        'Read, write or remove "stride-ed" data - skipping every nth byte',
-        'Zero dependencies - builds into linux mac and windows machine code',
-        'PyNumstore - a numstore python binding that offers an ACID storage engine for numpy arrays',
+        'Typed columns: f32, f64, i32, i64, complex, structs',
+        'Strided slice queries: read example[0:-10:2]',
+        'NumPy / PyTorch array round-trip via PyNumstore',
       ],
       accent: 'numstore',
       href: 'https://docs.numstore.com/numstore',
@@ -47,19 +46,17 @@ export const site = {
     {
       id: 'enterprise',
       name: 'Numstore Enterprise',
-      tagline: 'Managed Numstore for production teams.',
+      tagline: 'Distributed, multi-node — estimated December 2026',
       blurb:
-        'I took all the lessons I learned from Numstore and Smartfiles and re wrote an industry performant distributed, multi file database called Numstore-Enterprise',
+        'A rewrite in Rust taking every lesson from SmartFiles and Numstore: memory-safe, multi-file, multi-node, built for production scale.',
       features: [
-        'Supports the "just bytes" formulation that smartfiles does so well',
-        'Distributed enterprise ready database',
-        'Multi file',
-        'Multi node',
-        'Memory safe - written in rust with all the mistakes made in Numstore and Smartfiles remediated',
-        'Unreleased - stay tuned - estimated date: December 2026',
+        'Multi-node distributed storage',
+        'Written in Rust — no memory safety issues',
+        'Multi-file, horizontal scale-out',
+        'Unreleased — estimated December 2026',
       ],
       accent: 'enterprise',
-      href: 'mailto:hello@numstore.com?subject=Numstore%20Enterprise',
+      href: '#waitlist',
     },
   ],
 } as const

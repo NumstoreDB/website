@@ -11,6 +11,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme tokens ─────────────────────────────────────────── */
+:root {
+  --c-bg:       255 255 255;
+  --c-surface:  248 248 250;
+  --c-elevated: 241 241 245;
+  --c-border:   224 224 230;
+  --c-fg:       15  15  18;
+  --c-muted:    100 100 112;
+}
+
+.dark {
+  --c-bg:       10  10  10;
+  --c-surface:  17  17  19;
+  --c-elevated: 23  23  26;
+  --c-border:   38  38  43;
+  --c-fg:       231 231 234;
+  --c-muted:    154 154 163;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -19,8 +38,8 @@
 
   body {
     font-feature-settings: 'cv11', 'ss01', 'ss03';
-    background-color: theme('colors.bg');
-    color: theme('colors.fg');
+    background-color: rgb(var(--c-bg));
+    color: rgb(var(--c-fg));
     font-family: theme('fontFamily.sans');
   }
 
@@ -53,7 +72,7 @@
   }
 
   .btn-primary {
-    @apply btn bg-accent text-white hover:bg-accent-soft;
+    @apply btn bg-accent-soft text-white hover:bg-accent;
   }
 
   .btn-secondary {
@@ -62,17 +81,5 @@
 
   .btn-ghost {
     @apply btn bg-transparent text-fg hover:bg-elevated;
-  }
-
-  .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1 text-xs font-medium uppercase tracking-widest text-muted;
-  }
-
-  .reveal {
-    @apply opacity-0;
-  }
-
-  .reveal-visible {
-    @apply animate-fade-in-up opacity-100;
   }
 }
