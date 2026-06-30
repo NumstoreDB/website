@@ -45,7 +45,7 @@ import { site } from '../config/site'
               'text-product-enterprise': product.id === 'enterprise',
             }"
           >
-            {{ product.id === 'enterprise' ? 'Join waitlist →' : 'Docs →' }}
+            {{ product.id === 'enterprise' ? 'Contact us →' : 'Docs →' }}
           </a>
         </article>
       </div>

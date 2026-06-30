@@ -56,7 +56,7 @@ export const site = {
         'Unreleased — estimated December 2026',
       ],
       accent: 'enterprise',
-      href: '#waitlist',
+      href: '#contact',
     },
   ],
 } as const

@@ -22,7 +22,7 @@ const options = [
     id: 'enterprise',
     label: 'Numstore Enterprise',
     desc: 'Distributed, multi-node variant. Currently in development.',
-    href: '#waitlist',
+    href: '#contact',
   },
 ]
 
