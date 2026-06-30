@@ -19,10 +19,22 @@
   --c-border:   224 224 230;
   --c-fg:       15  15  18;
   --c-muted:    100 100 112;
+
+  /* bash syntax highlight */
+  --sh-comment: #6b7280;
+  --sh-flag:    #c0391b;
+  --sh-string:  #166534;
+  --sh-cmd:     #1c3a7a;
 }
 
 .dark {
   --c-bg:       10  10  10;
+
+  /* bash syntax highlight */
+  --sh-comment: #9a9aa3;
+  --sh-flag:    #e04a2c;
+  --sh-string:  #4ade80;
+  --sh-cmd:     #4a6cd9;
   --c-surface:  17  17  19;
   --c-elevated: 23  23  26;
   --c-border:   38  38  43;

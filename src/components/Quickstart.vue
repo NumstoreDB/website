@@ -2,16 +2,46 @@
 import { computed, ref } from 'vue'
 import { useTheme } from '../composables/useTheme'
 
-// Wrap the literal `github.com/...` in our Go example imports so Vite's
-// dev-time dependency scanner doesn't mistake them for real ES imports
-// it should pre-bundle.
 const GH = 'github.com'
+
+type Os = 'linux' | 'mac' | 'windows'
+
+interface InstallCommands {
+  linux: string
+  mac: string
+  windows: string
+}
 
 interface Example {
   id: string
   label: string
-  install: string
+  install: InstallCommands
   code: string
+}
+
+// ── Minimal bash highlighter (no deps) ───────────────────────
+function escHtml(s: string) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+function highlightBash(raw: string): string {
+  return raw.split('\n').map(line => {
+    // Comment line
+    if (/^\s*#/.test(line)) {
+      return `<span style="color:var(--sh-comment);font-style:italic">${escHtml(line)}</span>`
+    }
+    let out = escHtml(line)
+    // Flags: -x --xyz
+    out = out.replace(/((?:^|\s)(--?[\w][\w-]*))/g,
+      (_, pre, flag) => pre.replace(flag, `<span style="color:var(--sh-flag)">${flag}</span>`))
+    // Quoted strings
+    out = out.replace(/(&quot;[^&]*&quot;|&#39;[^&]*&#39;)/g,
+      m => `<span style="color:var(--sh-string)">${m}</span>`)
+    // First word of line = command
+    out = out.replace(/^(\s*)(\S+)/,
+      (_, ws, cmd) => `${ws}<span style="color:var(--sh-cmd)">${cmd}</span>`)
+    return out
+  }).join('\n')
 }
 
 interface Product {
@@ -34,11 +64,11 @@ const products: Product[] = [
       {
         id: 'c',
         label: 'C',
-        install: `git clone https://${GH}/NumstoreDB/Numstore
-cd Numstore/src
-# Edit main.c here
-gcc *.c -o main
-./main`,
+        install: {
+          linux:   `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore/src\n# Edit main.c here\ngcc *.c -o main\n./main`,
+          mac:     `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore/src\n# Edit main.c here\ngcc *.c -o main\n./main`,
+          windows: `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore\\src\n# Edit main.c here — requires MinGW or MSVC\ngcc *.c -o main.exe\nmain.exe`,
+        },
         code: `#include <stdio.h>
 #include <string.h>
 
@@ -96,7 +126,11 @@ main (void)
       {
         id: 'python',
         label: 'Python',
-        install: 'pip install pysmartfiles',
+        install: {
+          linux:   'pip install pysmartfiles',
+          mac:     'pip install pysmartfiles',
+          windows: 'pip install pysmartfiles',
+        },
         code: `#!/usr/bin/env python3
 import pysmartfiles as smf
 
@@ -128,7 +162,11 @@ with smf.open("sample1_crud") as f:
       {
         id: 'rust',
         label: 'Rust',
-        install: 'cargo add smartfiles',
+        install: {
+          linux:   'cargo add smartfiles',
+          mac:     'cargo add smartfiles',
+          windows: 'cargo add smartfiles',
+        },
         code: `use smartfiles::{SmartFile, END};
 
 fn main() -> smartfiles::Result<()> {
@@ -172,7 +210,11 @@ fn main() -> smartfiles::Result<()> {
       {
         id: 'c',
         label: 'C',
-        install: 'curl -L https://get.numstore.com | sh',
+        install: {
+          linux:   'curl -L https://get.numstore.com | sh',
+          mac:     'curl -L https://get.numstore.com | sh',
+          windows: 'winget install numstore\n# or: scoop install numstore',
+        },
         code: `#include <stdint.h>
 #include <stdio.h>
 #include <assert.h>
@@ -266,7 +308,11 @@ print_example (const char *label, struct example *ex, int n)
       {
         id: 'python',
         label: 'Python',
-        install: 'pip install pynumstore',
+        install: {
+          linux:   'pip install pynumstore',
+          mac:     'pip install pynumstore',
+          windows: 'pip install pynumstore',
+        },
         code: `#!/usr/bin/env python3
 import numpy as np
 import pynumstore as ns
@@ -308,7 +354,11 @@ with ns.open("sample1_crud") as db:
       {
         id: 'rust',
         label: 'Rust',
-        install: 'cargo add numstore',
+        install: {
+          linux:   'cargo add numstore',
+          mac:     'cargo add numstore',
+          windows: 'cargo add numstore',
+        },
         code: `use numstore::Database;
 
 // Packed struct - matches: struct { a f32, b [5][10] i32 }
@@ -369,7 +419,7 @@ fn main() -> numstore::Result<()> {
       {
         id: 'c',
         label: 'C',
-        install: '# preview — install path TBD',
+        install: { linux: '# preview — install path TBD', mac: '# preview — install path TBD', windows: '# preview — install path TBD' },
         code: `#include <numstore_enterprise.h>
 
 // numstore-enterprise is a work in progress.
@@ -388,7 +438,7 @@ int main(void) {
       {
         id: 'python',
         label: 'Python',
-        install: '# preview — install path TBD',
+        install: { linux: '# preview — install path TBD', mac: '# preview — install path TBD', windows: '# preview — install path TBD' },
         code: `# numstore-enterprise is a work in progress.
 # Shape shown for orientation only.
 
@@ -401,7 +451,7 @@ with nse.connect("nse://node-0,node-1,node-2") as cluster:
       {
         id: 'rust',
         label: 'Rust',
-        install: '# preview — crate name TBD',
+        install: { linux: '# preview — crate name TBD', mac: '# preview — crate name TBD', windows: '# preview — crate name TBD' },
         code: `// numstore-enterprise is a work in progress.
 // Shape shown for orientation only.
 
@@ -422,6 +472,13 @@ async fn main() -> nse::Result<()> {
 
 const activeProduct = ref(products[0].id)
 const activeLang = ref(products[0].examples[0].id)
+const activeOs = ref<Os>('linux')
+
+const osOptions: { id: Os; label: string }[] = [
+  { id: 'linux',   label: 'Linux'   },
+  { id: 'mac',     label: 'Mac'     },
+  { id: 'windows', label: 'Windows' },
+]
 
 const currentProduct = computed(
     () => products.find((p) => p.id === activeProduct.value) ?? products[0],
@@ -442,6 +499,10 @@ async function copyCode() {
     copied.value = false
   }
 }
+
+const highlightedInstall = computed(() =>
+  highlightBash(currentExample.value.install[activeOs.value]),
+)
 
 // ── Vim HTML code panels ──────────────────────────────────────
 const { isDark } = useTheme()
@@ -539,11 +600,23 @@ function resizeIframe(e: Event) {
 
         <div class="grid gap-px bg-border">
           <div class="bg-bg p-5">
-            <div class="flex items-baseline justify-between gap-3">
+            <div class="flex flex-wrap items-center justify-between gap-3">
               <span class="font-mono text-[10px] uppercase tracking-widest text-muted">Setup</span>
-              <span class="text-xs leading-relaxed text-muted">{{ currentProduct.blurb }}</span>
+              <!-- OS tabs -->
+              <div class="flex items-center gap-0.5 rounded-md border border-border bg-surface p-0.5">
+                <button
+                  v-for="os in osOptions"
+                  :key="os.id"
+                  type="button"
+                  class="rounded px-2.5 py-1 text-xs font-medium transition-colors"
+                  :class="activeOs === os.id
+                    ? 'bg-bg text-fg shadow-sm'
+                    : 'text-muted hover:text-fg'"
+                  @click="activeOs = os.id"
+                >{{ os.label }}</button>
+              </div>
             </div>
-            <pre class="mt-2 overflow-x-auto font-mono text-[13px] leading-[1.6] text-fg">{{ currentExample.install }}</pre>
+            <pre class="mt-3 overflow-x-auto font-mono text-[13px] leading-[1.6]"><code v-html="highlightedInstall" /></pre>
           </div>
           <div class="bg-bg">
             <div class="flex items-center justify-between gap-3 px-5 pt-5">
