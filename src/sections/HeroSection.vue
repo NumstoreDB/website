@@ -3,7 +3,7 @@ const options = [
   {
     id: 'libraries',
     label: 'Use the libraries',
-    desc: 'Open-source SmartFiles & Numstore - drop them into your project.',
+    desc: 'Open-source Numstore - drop it into your project.',
     href: '#quickstart',
   },
   {
@@ -13,8 +13,8 @@ const options = [
     href: '#custom',
   },
   {
-    id: 'enterprise',
-    label: 'Numstore Enterprise',
+    id: 'numstore-pro',
+    label: 'Numstore Pro',
     desc: 'Distributed, multi-node variant written entirely in Rust. Currently in development.',
     href: '#contact',
   },
@@ -36,8 +36,7 @@ function navigate(href: string) {
         </h1>
         <p class="mt-6 text-lg leading-relaxed text-muted">
           A <span class="font-semibold text-accent-soft">Fully ACID</span>, single file
-          database for <span class="font-semibold text-accent-soft">numerical arrays</span>.
-          Or use Numstore as a faster <span class="font-semibold text-secondary-soft">Smart File</span>,
+          database for <span class="font-semibold text-accent-soft">numerical arrays</span>,
           offering speed ups on the <span class="font-semibold text-secondary-soft">order of thousands</span>
           over the traditional file.
         </p>

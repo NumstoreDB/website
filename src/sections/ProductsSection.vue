@@ -5,10 +5,10 @@ import { site } from '../config/site'
 <template>
   <section id="products" class="border-b border-border py-20 md:py-24">
     <div class="container-page">
-      <h2 class="text-2xl font-bold tracking-tight text-fg md:text-3xl">Three libraries</h2>
-      <p class="mt-2 text-sm text-muted">Each builds on the last. Start with SmartFiles; graduate to Numstore when you need types.</p>
+      <h2 class="text-2xl font-bold tracking-tight text-fg md:text-3xl">Two products</h2>
+      <p class="mt-2 text-sm text-muted">Numstore is the core engine. Numstore Pro adds distributed, multi-node scale.</p>
 
-      <div class="mt-10 grid gap-px border border-border bg-border md:grid-cols-3">
+      <div class="mt-10 grid gap-px border border-border bg-border md:grid-cols-2">
         <article
           v-for="product in site.products"
           :key="product.id"
@@ -17,9 +17,8 @@ import { site } from '../config/site'
           <div
             class="h-1 w-8 rounded-full"
             :class="{
-              'bg-product-smartfiles': product.id === 'smartfiles',
-              'bg-product-numstore':   product.id === 'numstore',
-              'bg-product-enterprise': product.id === 'enterprise',
+              'bg-product-numstore': product.id === 'numstore',
+              'bg-product-numstore-pro': product.id === 'numstore-pro',
             }"
           />
 
@@ -40,12 +39,11 @@ import { site } from '../config/site'
             :rel="product.href.startsWith('#') ? undefined : 'noopener'"
             class="mt-8 text-sm font-medium transition-colors hover:underline"
             :class="{
-              'text-product-smartfiles': product.id === 'smartfiles',
-              'text-product-numstore':   product.id === 'numstore',
-              'text-product-enterprise': product.id === 'enterprise',
+              'text-product-numstore': product.id === 'numstore',
+              'text-product-numstore-pro': product.id === 'numstore-pro',
             }"
           >
-            {{ product.id === 'enterprise' ? 'Contact us →' : 'Docs →' }}
+            {{ product.id === 'numstore-pro' ? 'Contact us →' : 'Docs →' }}
           </a>
         </article>
       </div>

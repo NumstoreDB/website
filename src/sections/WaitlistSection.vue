@@ -27,11 +27,11 @@ function markTouched(field: keyof typeof touched) {
 }
 
 const interestOptions = [
-  { value: 'libraries',   label: 'Using the open-source libraries (SmartFiles / Numstore)' },
-  { value: 'custom',      label: 'Custom database development' },
-  { value: 'diy',         label: 'Building my own database on top of Numstore' },
-  { value: 'enterprise',  label: 'Numstore Enterprise (waitlist)' },
-  { value: 'other',       label: 'Something else' },
+  { value: 'libraries',    label: 'Using the open-source Numstore library' },
+  { value: 'custom',       label: 'Custom database development' },
+  { value: 'diy',          label: 'Building my own database on top of Numstore' },
+  { value: 'numstore-pro', label: 'Numstore Pro (waitlist)' },
+  { value: 'other',        label: 'Something else' },
 ]
 
 const sourceOptions = [
@@ -114,7 +114,7 @@ function fieldBorderClass(touchedField: boolean, valid: boolean) {
           <h2 class="text-2xl font-bold tracking-tight text-fg md:text-3xl">Get in touch</h2>
           <p class="mt-4 text-sm leading-relaxed text-muted">
             Whether you want to use the libraries, commission a custom engine, or get on the
-            Enterprise waitlist - start here. I read every submission and respond within 1-2 business days.
+            Numstore Pro waitlist - start here. I read every submission and respond within 1-2 business days.
           </p>
           <p class="mt-6 text-xs text-muted">
             Prefer email?

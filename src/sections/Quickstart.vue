@@ -2,8 +2,6 @@
 import { computed, ref } from 'vue'
 import { useTheme } from '../composables/useTheme'
 
-const GH = 'github.com'
-
 type Os = 'linux' | 'mac' | 'windows'
 
 interface InstallCommands {
@@ -55,152 +53,6 @@ interface Product {
 // Languages are the same set across products so the user's choice
 // is preserved when they switch products.
 const products: Product[] = [
-  {
-    id: 'smartfiles',
-    label: 'SmartFiles',
-    blurb: 'The ACID file. Open it, write bytes, do strided reads.',
-    examples: [
-      {
-        id: 'c',
-        label: 'C',
-        install: {
-          linux:   `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore/src\n# Edit main.c here\ngcc *.c -o main\n./main`,
-          mac:     `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore/src\n# Edit main.c here\ngcc *.c -o main\n./main`,
-          windows: `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore\\src\n# Edit main.c here - requires MinGW or MSVC\ngcc *.c -o main.exe\nmain.exe`,
-        },
-        code: `#include <stdio.h>
-#include <string.h>
-
-// Smartfiles is a single header
-#include "smartfiles.h"
-
-static char buf[64];
-
-int
-main (void)
-{
-  // Open a database
-  smfile_t *smf = smfile_open ("sample1_crud");
-  smfile_remove (smf, NULL, 0, SMF_END);
-
-  // Insert data at offset 0
-  const char *initial = "The quick brown fox jumps over the lazy dog";
-  smfile_insert (smf, initial, 0, strlen (initial));
-
-  // Read that data (all of it)
-  sb_size n = smfile_read (smf, buf, 0, SMF_END);
-  printf ("after insert:  \\"%.*s\\"\\n", (int)n, buf);
-
-  // Execute a transaction
-  smfile_begin (smf);
-  {
-    // Insert data at offset 34
-    const char *adverb = " really";
-    smfile_insert (smf, adverb, 34, strlen (adverb));
-
-    n = smfile_read (smf, buf, 0, SMF_END);
-    printf ("after insert:  \\"%.*s\\"\\n", (int)n, buf);
-
-    // Overwrite data at offset 16
-    smfile_write (smf, "cat", 16, 3);
-
-    n = smfile_read (smf, buf, 0, SMF_END);
-    printf ("after write:   \\"%.*s\\"\\n", (int)n, buf);
-
-    // Remove data starting at offset
-    n = smfile_remove (smf, buf, 4, 6);
-    printf ("removed:       \\"%.*s\\"\\n", (int)n, buf);
-
-    n = smfile_read (smf, buf, 0, SMF_END);
-    printf ("after remove (inside txn):  \\"%.*s\\"\\n", (int)n, buf);
-  }
-  smfile_rollback (smf);
-
-  n = smfile_read (smf, buf, 0, SMF_END);
-  printf ("after rollback:  \\"%.*s\\"\\n", (int)n, buf);
-
-  return smfile_close (smf);
-}`,
-      },
-      {
-        id: 'python',
-        label: 'Python',
-        install: {
-          linux:   'pip install pysmartfiles',
-          mac:     'pip install pysmartfiles',
-          windows: 'pip install pysmartfiles',
-        },
-        code: `#!/usr/bin/env python3
-import pysmartfiles as smf
-
-with smf.open("sample1_crud") as f:
-    f.remove(0, smf.END)  # start clean
-
-    # Insert at offset 0
-    f.insert(0, b"The quick brown fox jumps over the lazy dog")
-    print(f"after insert:  {f.read(0, smf.END)!r}")
-
-    with f.begin_txn() as txn:
-        # Insert at offset 34
-        txn.insert(34, b" really")
-        print(f"after insert:  {txn.read(0, smf.END)!r}")
-
-        # Overwrite at offset 16
-        txn.write(16, b"cat")
-        print(f"after write:   {txn.read(0, smf.END)!r}")
-
-        # Remove 6 bytes starting at offset 4
-        removed = txn.remove(4, 6)
-        print(f"removed:       {removed!r}")
-        print(f"after remove (inside txn):  {txn.read(0, smf.END)!r}")
-
-        txn.rollback()
-
-    print(f"after rollback:  {f.read(0, smf.END)!r}")` ,
-      },
-      {
-        id: 'rust',
-        label: 'Rust',
-        install: {
-          linux:   'cargo add smartfiles',
-          mac:     'cargo add smartfiles',
-          windows: 'cargo add smartfiles',
-        },
-        code: `use smartfiles::{SmartFile, END};
-
-fn main() -> smartfiles::Result<()> {
-    let mut f = SmartFile::open("sample1_crud")?;
-    f.remove(0, END)?;
-
-    // Insert at offset 0
-    f.insert(0, b"The quick brown fox jumps over the lazy dog")?;
-    println!("after insert:  {:?}", f.read(0, END)?);
-
-    {
-        let mut txn = f.begin_txn()?;
-
-        // Insert at offset 34
-        txn.insert(34, b" really")?;
-        println!("after insert:  {:?}", txn.read(0, END)?);
-
-        // Overwrite at offset 16
-        txn.write(16, b"cat")?;
-        println!("after write:   {:?}", txn.read(0, END)?);
-
-        // Remove 6 bytes starting at offset 4
-        let removed = txn.remove(4, 6)?;
-        println!("removed:       {:?}", removed);
-        println!("after remove (inside txn):  {:?}", txn.read(0, END)?);
-
-        txn.rollback()?;
-    }
-
-    println!("after rollback:  {:?}", f.read(0, END)?);
-    Ok(())
-}`,
-      },
-    ],
-  },
   {
     id: 'numstore',
     label: 'Numstore',
@@ -409,8 +261,8 @@ fn main() -> numstore::Result<()> {
     ],
   },
   {
-    id: 'enterprise',
-    label: 'Numstore Enterprise',
+    id: 'numstore-pro',
+    label: 'Numstore Pro',
     blurb: 'The distributed, multi-node variant. API shape shown for orientation only.',
     wip: true,
     wipNote: 'Work in progress - estimated December 2026.',
@@ -419,31 +271,31 @@ fn main() -> numstore::Result<()> {
         id: 'c',
         label: 'C',
         install: { linux: '# preview - install path TBD', mac: '# preview - install path TBD', windows: '# preview - install path TBD' },
-        code: `#include <numstore_enterprise.h>
+        code: `#include <numstore_pro.h>
 
-// numstore-enterprise is a work in progress.
+// numstore-pro is a work in progress.
 // Shape shown for orientation only.
 
 int main(void) {
-  nse_cluster *c = nse_connect("nse://node-0,node-1,node-2");
-  nse_col *col = nse_col(c, "cpu", NSE_F64);
+  nsp_cluster *c = nsp_connect("nsp://node-0,node-1,node-2");
+  nsp_col *col = nsp_col(c, "cpu", NSP_F64);
 
   double values[] = { 0.41, 0.55, 0.62 };
-  nse_write(col, values, 3);
+  nsp_write(col, values, 3);
 
-  nse_close(c);
+  nsp_close(c);
 }`,
       },
       {
         id: 'python',
         label: 'Python',
         install: { linux: '# preview - install path TBD', mac: '# preview - install path TBD', windows: '# preview - install path TBD' },
-        code: `# numstore-enterprise is a work in progress.
+        code: `# numstore-pro is a work in progress.
 # Shape shown for orientation only.
 
-import numstore_enterprise as nse
+import numstore_pro as nsp
 
-with nse.connect("nse://node-0,node-1,node-2") as cluster:
+with nsp.connect("nsp://node-0,node-1,node-2") as cluster:
     col = cluster.column("cpu", dtype="f64")
     col.write([0.41, 0.55, 0.62])`,
       },
@@ -451,14 +303,14 @@ with nse.connect("nse://node-0,node-1,node-2") as cluster:
         id: 'rust',
         label: 'Rust',
         install: { linux: '# preview - crate name TBD', mac: '# preview - crate name TBD', windows: '# preview - crate name TBD' },
-        code: `// numstore-enterprise is a work in progress.
+        code: `// numstore-pro is a work in progress.
 // Shape shown for orientation only.
 
-use numstore_enterprise::{Cluster, Dtype};
+use numstore_pro::{Cluster, Dtype};
 
 #[tokio::main]
-async fn main() -> nse::Result<()> {
-    let cluster = Cluster::connect("nse://node-0,node-1,node-2").await?;
+async fn main() -> nsp::Result<()> {
+    let cluster = Cluster::connect("nsp://node-0,node-1,node-2").await?;
     let col = cluster.column("cpu", Dtype::F64).await?;
 
     col.write(&[0.41, 0.55, 0.62]).await?;
