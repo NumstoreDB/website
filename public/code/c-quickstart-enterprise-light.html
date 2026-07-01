@@ -1,13 +1,116 @@
+<!-- vim: set nomodeline: -->
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<style>
-  html, body { margin: 0; padding: 0; background: transparent; }
-  pre { margin: 0; padding: 1rem; font-family: monospace; font-size: 13px; line-height: 1.6; color: #999; }
-</style>
+    <meta charset="UTF-8">
+    <title>/Users/theo/Development/Numstore/src/main.c</title>
+    <meta name="colorscheme" content="kanagawa"></meta>
+    <style>
+        * {font-family: "SF Mono","Menlo","Monaco","Courier New","monospace",monospace}
+        body {background-color: #f2ecbc; color: #545464}
+        .Constant {color: #cc6d00}
+        .PreProc {color: #c84053}
+        .Comment {font-style: italic; color: #8a8980}
+        .Statement {font-weight: bold; color: #624c83}
+        .MatchParen {font-weight: bold; color: #e98a00}
+        .Special {color: #6693bf}
+        .Type {color: #597b75}
+        .String {color: #6f894e}
+        .Number {color: #b35b79}
+    </style>
 </head>
-<body>
-<pre><!-- Paste your vim :TOhtml output here (replace the entire file contents) --></pre>
+<body style="display: flex">
+<pre>
+<span class="PreProc">#include </span><span class="String">&lt;assert.h&gt;</span>
+<span class="PreProc">#include </span><span class="String">&lt;stdint.h&gt;</span>
+<span class="PreProc">#include </span><span class="String">&lt;stdio.h&gt;</span>
+
+<span class="PreProc">#include </span><span class="String">&quot;numstore.h&quot;</span>
+
+<span class="Comment">// A packed in memory representation of data</span>
+<span class="Type">struct</span> example
+{
+  <span class="Type">float</span>   a;
+  <span class="Type">int32_t</span> b[<span class="Number">5</span>][<span class="Number">10</span>];
+} __attribute__ ((packed));
+
+<span class="Type">static</span> <span class="Type">struct</span> example src[<span class="Number">200</span>], dest[<span class="Number">200</span>];
+<span class="Type">static</span> <span class="Type">void</span> print_example (<span class="Type">const</span> <span class="Type">char</span> *label, <span class="Type">struct</span> example *ex, <span class="Type">int</span> n);
+
+<span class="Type">int</span>
+main (<span class="Type">void</span>)
+{
+  <span class="Comment">// Initialize some data</span>
+  <span class="Statement">for</span> (<span class="Type">int</span> i = <span class="Number">0</span>; i &lt; <span class="Number">200</span>; i++)
+  {
+    src[i].a = i;
+    <span class="Statement">for</span> (<span class="Type">int</span> r = <span class="Number">0</span>; r &lt; <span class="Number">5</span>; r++)
+    {
+      <span class="Statement">for</span> (<span class="Type">int</span> c = <span class="Number">0</span>; c &lt; <span class="Number">10</span>; c++)
+      {
+        src[i].b[r]<span class="MatchParen">[</span>c<span class="MatchParen">]</span> = i + r * <span class="Number">10</span> + c;
+      }
+    }
+  }
+
+  <span class="Comment">// Open up a database</span>
+  nsdb_t *ns = nsdb_open (<span class="String">&quot;sample1_crud&quot;</span>);
+
+  <span class="Comment">// Create a typed variable</span>
+  nsdb_execute (ns, <span class="String">&quot;delete if exists example&quot;</span>, <span class="Constant">NULL</span>);
+  nsdb_execute (ns, <span class="String">&quot;create example struct { a f32, b [5][10] i32 }&quot;</span>, <span class="Constant">NULL</span>);
+
+  <span class="Comment">// Insert 200 elements of seed data at offset 0</span>
+  <span class="Type">int</span> n = nsdb_execute (ns, <span class="String">&quot;insert example 0 </span><span class="Special">%d</span><span class="String">&quot;</span>, src, <span class="Number">200</span>);
+
+  <span class="Comment">// Begin a transaction - mutations rolled back at the end</span>
+  nsdb_begin (ns);
+  {
+    <span class="Comment">// Read every 3rd element</span>
+    n = nsdb_execute (ns, <span class="String">&quot;read example[0::3]&quot;</span>, dest);
+    print_example (<span class="String">&quot;Every 3rd element&quot;</span>, dest, n);
+
+    <span class="Comment">// Remove every 2nd element up to len - 10</span>
+    n = nsdb_execute (ns, <span class="String">&quot;remove example[0:-10:2]&quot;</span>, dest);
+    print_example (<span class="String">&quot;Removed Elements [0:-10:2]&quot;</span>, dest, n);
+
+    <span class="Comment">// Overwrite every 2nd element with src</span>
+    nsdb_execute (ns, <span class="String">&quot;write example[1::2]&quot;</span>, src);
+
+    <span class="Comment">// Read all</span>
+    n = nsdb_execute (ns, <span class="String">&quot;read example[0:]&quot;</span>, dest);
+    print_example (<span class="String">&quot;Data After Write [1::2]&quot;</span>, dest, n);
+  }
+  nsdb_rollback (ns);
+
+  <span class="Comment">// Read all after rollback</span>
+  n = nsdb_execute (ns, <span class="String">&quot;read example[0:]&quot;</span>, dest);
+  print_example (<span class="String">&quot;Data After Rollback&quot;</span>, dest, n);
+
+  <span class="Statement">return</span> nsdb_close (ns);
+}
+
+<span class="Type">static</span> <span class="Type">void</span>
+print_example (<span class="Type">const</span> <span class="Type">char</span> *label, <span class="Type">struct</span> example *ex, <span class="Type">int</span> n)
+{
+  assert (n &gt;= <span class="Number">3</span>);
+  printf (<span class="String">&quot;</span><span class="Special">%s</span><span class="String"> (</span><span class="Special">%d</span><span class="String">):</span><span class="Special">\n</span><span class="String">&quot;</span>, label, n);
+  <span class="Statement">for</span> (<span class="Type">int</span> i = <span class="Number">0</span>; i &lt; <span class="Number">3</span>; i++)
+  {
+    printf (
+        <span class="String">&quot;  [</span><span class="Special">%d</span><span class="String">] a=</span><span class="Special">%g</span><span class="String">  b=[[</span><span class="Special">%d</span><span class="String">, </span><span class="Special">%d</span><span class="String"> ...], [</span><span class="Special">%d</span><span class="String">, </span><span class="Special">%d</span><span class="String"> ...], ...]</span><span class="Special">\n</span><span class="String">&quot;</span>,
+        i,
+        ex[i].a,
+        ex[i].b[<span class="Number">0</span>][<span class="Number">0</span>],
+        ex[i].b[<span class="Number">0</span>][<span class="Number">1</span>],
+        ex[i].b[<span class="Number">1</span>][<span class="Number">0</span>],
+        ex[i].b[<span class="Number">1</span>][<span class="Number">1</span>]
+    );
+  }
+
+  printf (<span class="String">&quot;  ... (</span><span class="Special">%d</span><span class="String"> more)</span><span class="Special">\n</span><span class="String">&quot;</span>, n - <span class="Number">3</span>);
+}
+
+</pre>
 </body>
 </html>

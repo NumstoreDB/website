@@ -29,7 +29,7 @@ import { site } from '../config/site'
 
           <ul class="mt-6 flex flex-1 flex-col gap-2 border-t border-border pt-6">
             <li v-for="f in product.features" :key="f" class="flex items-start gap-2 text-xs text-muted">
-              <span class="mt-0.5 text-fg">—</span>
+              <span class="mt-0.5 text-fg">-</span>
               {{ f }}
             </li>
           </ul>

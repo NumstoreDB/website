@@ -19,7 +19,6 @@ interface Example {
   code: string
 }
 
-// ── Minimal bash highlighter (no deps) ───────────────────────
 function escHtml(s: string) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
@@ -67,7 +66,7 @@ const products: Product[] = [
         install: {
           linux:   `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore/src\n# Edit main.c here\ngcc *.c -o main\n./main`,
           mac:     `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore/src\n# Edit main.c here\ngcc *.c -o main\n./main`,
-          windows: `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore\\src\n# Edit main.c here — requires MinGW or MSVC\ngcc *.c -o main.exe\nmain.exe`,
+          windows: `git clone https://${GH}/NumstoreDB/Numstore\ncd Numstore\\src\n# Edit main.c here - requires MinGW or MSVC\ngcc *.c -o main.exe\nmain.exe`,
         },
         code: `#include <stdio.h>
 #include <string.h>
@@ -414,12 +413,12 @@ fn main() -> numstore::Result<()> {
     label: 'Numstore Enterprise',
     blurb: 'The distributed, multi-node variant. API shape shown for orientation only.',
     wip: true,
-    wipNote: 'Work in progress — estimated December 2026.',
+    wipNote: 'Work in progress - estimated December 2026.',
     examples: [
       {
         id: 'c',
         label: 'C',
-        install: { linux: '# preview — install path TBD', mac: '# preview — install path TBD', windows: '# preview — install path TBD' },
+        install: { linux: '# preview - install path TBD', mac: '# preview - install path TBD', windows: '# preview - install path TBD' },
         code: `#include <numstore_enterprise.h>
 
 // numstore-enterprise is a work in progress.
@@ -438,7 +437,7 @@ int main(void) {
       {
         id: 'python',
         label: 'Python',
-        install: { linux: '# preview — install path TBD', mac: '# preview — install path TBD', windows: '# preview — install path TBD' },
+        install: { linux: '# preview - install path TBD', mac: '# preview - install path TBD', windows: '# preview - install path TBD' },
         code: `# numstore-enterprise is a work in progress.
 # Shape shown for orientation only.
 
@@ -451,7 +450,7 @@ with nse.connect("nse://node-0,node-1,node-2") as cluster:
       {
         id: 'rust',
         label: 'Rust',
-        install: { linux: '# preview — crate name TBD', mac: '# preview — crate name TBD', windows: '# preview — crate name TBD' },
+        install: { linux: '# preview - crate name TBD', mac: '# preview - crate name TBD', windows: '# preview - crate name TBD' },
         code: `// numstore-enterprise is a work in progress.
 // Shape shown for orientation only.
 
@@ -519,7 +518,7 @@ function resizeIframe(e: Event) {
     const h = iframe.contentDocument?.body?.scrollHeight
     if (h) iframe.style.height = h + 'px'
   } catch {
-    // cross-origin guard (shouldn't happen — same origin)
+    // cross-origin guard (shouldn't happen - same origin)
   }
 }
 </script>
@@ -568,7 +567,7 @@ function resizeIframe(e: Event) {
             <path d="M12 9v4M12 17h.01" />
             <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
           </svg>
-          <span>{{ currentProduct.wipNote }} The API below is illustrative — it may change before release.</span>
+          <span>{{ currentProduct.wipNote }} The API below is illustrative - it may change before release.</span>
         </div>
 
         <div

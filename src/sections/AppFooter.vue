@@ -15,7 +15,7 @@ const year = new Date().getFullYear()
         <a :href="site.external.github"  target="_blank" rel="noopener" class="hover:text-fg">GitHub</a>
         <a :href="site.external.youtube" target="_blank" rel="noopener" class="hover:text-fg">YouTube</a>
         <a :href="site.external.x"       target="_blank" rel="noopener" class="hover:text-fg">X</a>
-        <a :href="site.external.discord" target="_blank" rel="noopener" class="hover:text-fg">Discord</a>
+        <a :href="site.external.linkedin" target="_blank" rel="noopener" class="hover:text-fg">LinkedIn</a>
         <a :href="`mailto:${site.contact.email}`" class="hover:text-fg">{{ site.contact.email }}</a>
       </nav>
       <p class="text-xs text-muted">© {{ year }} Numstore LLC</p>

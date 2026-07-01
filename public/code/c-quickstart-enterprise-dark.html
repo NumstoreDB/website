@@ -1,13 +1,82 @@
+<!-- vim: set nomodeline: -->
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<style>
-  html, body { margin: 0; padding: 0; background: transparent; }
-  pre { margin: 0; padding: 1rem; font-family: monospace; font-size: 13px; line-height: 1.6; color: #999; }
-</style>
+    <meta charset="UTF-8">
+    <title>/Users/theo/.config/nvim/init.vim</title>
+    <meta name="colorscheme" content="kanagawa"></meta>
+    <style>
+        * {font-family: "SF Mono","Menlo","Monaco","Courier New","monospace",monospace}
+        body {background-color: #181616; color: #c5c9c5}
+        .Comment {font-style: italic; color: #737c73}
+        .Operator {color: #c4746e}
+        .vimMapRhs {}
+        .vimUserCmdName {}
+        .vimUsrCmd {}
+        .vimUserCmdReplacement {}
+        .vimIsCommand {}
+        .String {color: #8a9a7b}
+        .Function {color: #8ba4b0}
+        .vimSetCmdSep {}
+        .PreProc {color: #c4746e}
+        .Normal {background-color: #181616; color: #c5c9c5}
+        .Identifier {color: #c4b28a}
+        .Special {color: #949fb5}
+        .Statement {font-weight: bold; color: #8992a7}
+        .vimSetEqual {}
+        .Delimiter {color: #9e9b93}
+        .vimSetArgs {}
+        .vimLuaStatement {}
+        .vimOperParen {}
+    </style>
 </head>
-<body>
-<pre><!-- Paste your vim :TOhtml output here (replace the entire file contents) --></pre>
+<body style="display: flex">
+<pre>
+<span class="Statement">call</span> <span class="Normal">plug#begin</span><span class="Delimiter">(</span><span class="Function">stdpath</span><span class="Delimiter">(</span><span class="String">'data'</span><span class="Delimiter">)</span><span class="vimOperParen"> </span><span class="Operator">.</span><span class="vimOperParen"> </span><span class="String">'/plugged'</span><span class="Delimiter">)</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'nvim-treesitter/nvim-treesitter'</span>, <span class="Delimiter">{</span><span class="String">'do'</span><span class="vimOperParen">: </span><span class="String">':TSUpdate'</span><span class="Delimiter">}</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'rebelot/kanagawa.nvim'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'nvim-tree/nvim-tree.lua'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'nvim-tree/nvim-web-devicons'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'ludovicchabant/vim-gutentags'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'neovim/nvim-lspconfig'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'vim-airline/vim-airline'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'danymat/neogen'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'hrsh7th/cmp-nvim-lsp'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'hrsh7th/cmp-buffer'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'hrsh7th/cmp-path'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'hrsh7th/cmp-cmdline'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'hrsh7th/nvim-cmp'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'hrsh7th/cmp-vsnip'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'hrsh7th/vim-vsnip'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'nvim-lua/plenary.nvim'</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'nvim-telescope/telescope.nvim'</span>, <span class="Delimiter">{</span><span class="vimOperParen"> </span><span class="String">'branch'</span><span class="vimOperParen"> </span><span class="Operator">:</span><span class="vimOperParen"> </span><span class="String">'master'</span><span class="vimOperParen"> </span><span class="Delimiter">}</span>
+<span class="vimUsrCmd">Plug</span> <span class="String">'mfussenegger/nvim-jdtls'</span>
+<span class="Statement">call</span> <span class="Normal">plug#end</span><span class="Delimiter">()</span>
+
+<span class="Comment">&quot; Colorscheme</span>
+<span class="Statement">colorscheme</span> <span class="vimIsCommand">kanagawa</span><span class="Operator">-</span><span class="Normal">dragon</span>
+
+<span class="Comment">&quot; Tags</span>
+<span class="Statement">set</span> <span class="PreProc">statusline</span><span class="Operator">+=</span><span class="vimSetEqual">%{gutentags#statusline()}</span>
+
+<span class="Comment">&quot; Exec command</span>
+<span class="Statement">command</span> <span class="vimUserCmdName">Exec</span> <span class="Statement">set</span><span class="vimUserCmdReplacement"> </span><span class="PreProc">splitright</span><span class="vimSetArgs"> </span><span class="vimSetCmdSep">|</span><span class="vimUserCmdReplacement"> </span><span class="Statement">vnew</span><span class="vimUserCmdReplacement"> | </span><span class="Statement">set</span><span class="vimUserCmdReplacement"> </span><span class="PreProc">filetype</span><span class="Operator">=</span><span class="vimSetEqual">sh</span><span class="vimSetArgs"> </span><span class="vimSetCmdSep">|</span><span class="vimUserCmdReplacement"> </span><span class="Statement">read</span><span class="vimUserCmdReplacement"> </span><span class="Operator">!</span><span class="Normal">sh</span><span class="vimUserCmdReplacement"> #</span>
+<span class="Statement">vmap</span> <span class="Delimiter">&lt;</span><span class="Special">space</span><span class="Delimiter">&gt;</span> <span class="vimMapRhs">&quot;xy:@x</span><span class="Delimiter">&lt;</span><span class="Special">CR</span><span class="Delimiter">&gt;</span>
+
+<span class="Comment">&quot; Python host</span>
+<span class="Statement">let</span> <span class="Identifier">g:</span><span class="Normal">python3_host_prog</span><span class="Operator">=</span><span class="String">&quot;/usr/bin/python3&quot;</span>
+
+<span class="Comment">&quot; Load Lua configs</span>
+<span class="Statement">lua</span> <span class="Identifier">require</span><span class="vimLuaStatement">(</span><span class="String">'settings'</span><span class="vimLuaStatement">)</span>
+<span class="Statement">lua</span> <span class="Identifier">require</span><span class="vimLuaStatement">(</span><span class="String">'keymaps'</span><span class="vimLuaStatement">)</span>
+<span class="Statement">lua</span> <span class="Identifier">require</span><span class="vimLuaStatement">(</span><span class="String">'plugins.nvim-tree'</span><span class="vimLuaStatement">)</span>
+<span class="Statement">lua</span> <span class="Identifier">require</span><span class="vimLuaStatement">(</span><span class="String">'plugins.web-devicons'</span><span class="vimLuaStatement">)</span>
+<span class="Statement">lua</span> <span class="Identifier">require</span><span class="vimLuaStatement">(</span><span class="String">'plugins.cmp'</span><span class="vimLuaStatement">)</span>
+<span class="Statement">lua</span> <span class="Identifier">require</span><span class="vimLuaStatement">(</span><span class="String">'plugins.lsp'</span><span class="vimLuaStatement">)</span>
+<span class="Statement">lua</span> <span class="Identifier">require</span><span class="vimLuaStatement">(</span><span class="String">'plugins.neogen'</span><span class="vimLuaStatement">)</span>
+<span class="Statement">lua</span> <span class="Identifier">require</span><span class="vimLuaStatement">(</span><span class="String">'plugins.formatting'</span><span class="vimLuaStatement">)</span>
+<span class="Statement">lua</span> <span class="Identifier">require</span><span class="vimLuaStatement">(</span><span class="String">'plugins.snippets'</span><span class="vimLuaStatement">)</span>
+
+</pre>
 </body>
 </html>

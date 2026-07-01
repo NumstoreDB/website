@@ -3,25 +3,19 @@ const options = [
   {
     id: 'libraries',
     label: 'Use the libraries',
-    desc: 'Open-source SmartFiles & Numstore — drop them into your project.',
+    desc: 'Open-source SmartFiles & Numstore - drop them into your project.',
     href: '#quickstart',
   },
   {
     id: 'custom',
     label: 'Custom database',
-    desc: 'We design and build a bespoke storage engine for your workload.',
+    desc: 'I design and build custom storage engines for your workload.',
     href: '#custom',
-  },
-  {
-    id: 'diy',
-    label: 'Build your own',
-    desc: 'Use our engine as a foundation and extend it yourself.',
-    href: '#build-your-own',
   },
   {
     id: 'enterprise',
     label: 'Numstore Enterprise',
-    desc: 'Distributed, multi-node variant. Currently in development.',
+    desc: 'Distributed, multi-node variant written entirely in Rust. Currently in development.',
     href: '#contact',
   },
 ]
@@ -36,16 +30,16 @@ function navigate(href: string) {
   <section class="border-b border-border py-24 md:py-32">
     <div class="container-page">
       <div class="max-w-2xl">
-        <p class="font-mono text-xs text-muted">Numstore · v1.1.3</p>
+        <a href="https://github.com/NumstoreDB/Numstore/releases/tag/v1.1.3"><p class="font-mono text-xs text-muted">Numstore · v1.1.3</p></a>
         <h1 class="mt-4 text-5xl font-bold tracking-tight text-fg md:text-6xl lg:text-7xl">
-          We build custom databases.
+          <a href="https://github.com/NumstoreDB/Numstore"><span class="font-semibold text-accent-soft hover:text-secondary-soft">Numstore</span></a>,
         </h1>
         <p class="mt-6 text-lg leading-relaxed text-muted">
-          Off-the-shelf databases make tradeoffs that don't fit every workload.
-          We build storage engines tuned to the problem —
-          <span class="font-semibold text-accent-soft">fully ACID</span>,
-          <span class="font-semibold text-secondary-soft">O(log n)</span> inner mutations,
-          zero dependencies. Open-source libraries included.
+          A <span class="font-semibold text-accent-soft">Fully ACID</span>, single file
+          database for <span class="font-semibold text-accent-soft">numerical arrays</span>.
+          Or use Numstore as a faster <span class="font-semibold text-secondary-soft">Smart File</span>,
+          offering speed ups on the <span class="font-semibold text-secondary-soft">order of thousands</span>
+          over the traditional file.
         </p>
       </div>
 
@@ -64,7 +58,6 @@ function navigate(href: string) {
               {{ opt.label }}
             </span>
             <span class="text-xs leading-relaxed text-muted">{{ opt.desc }}</span>
-            <span class="mt-auto pt-2 text-xs text-muted group-hover:text-accent-soft transition-colors">→</span>
           </button>
         </div>
       </div>

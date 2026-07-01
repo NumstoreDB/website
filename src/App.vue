@@ -1,25 +1,23 @@
 <script setup lang="ts">
-import AppBar from './components/AppBar.vue'
-import AppFooter from './components/AppFooter.vue'
-import Hero from './components/Hero.vue'
-import Quickstart from './components/Quickstart.vue'
-import VideoSection from './components/VideoSection.vue'
-import ProductsSection from './components/ProductsSection.vue'
-import CustomSection from './components/CustomSection.vue'
-import BuildYourOwnSection from './components/BuildYourOwnSection.vue'
-import WaitlistSection from './components/WaitlistSection.vue'
+import AppBar from './sections/AppBar.vue'
+import AppFooter from './sections/AppFooter.vue'
+import HeroSection from './sections/HeroSection.vue'
+import Quickstart from './sections/Quickstart.vue'
+import VideoSection from './sections/VideoSection.vue'
+import ProductsSection from './sections/ProductsSection.vue'
+import CustomSection from './sections/CustomSection.vue'
+import WaitlistSection from './sections/WaitlistSection.vue'
 </script>
 
 <template>
   <div class="flex min-h-screen flex-col bg-bg text-fg">
     <AppBar />
     <main class="flex-1">
-      <Hero />
+      <HeroSection />
       <Quickstart />
       <VideoSection />
       <ProductsSection />
       <CustomSection />
-      <BuildYourOwnSection />
       <WaitlistSection />
     </main>
     <AppFooter />
