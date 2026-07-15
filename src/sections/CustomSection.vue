@@ -7,14 +7,14 @@
         <div>
           <h2 class="text-2xl font-bold tracking-tight text-fg md:text-3xl">Custom database development</h2>
           <p class="mt-4 text-sm leading-relaxed text-muted">
-            Most teams reach for Postgres or SQLite and spend months working around the mismatch.
-            We start from the storage layer up - designed around your data shape,
+            Most teams default to Postgres or SQLite and spend months compensating for the mismatch.
+            We build from the storage layer up, engineered around your data shape,
             access patterns, and consistency requirements.
           </p>
           <p class="mt-4 text-sm leading-relaxed text-muted">
-            We've built ACID files, typed column stores, and distributed engines.
-            If your workload is numerical arrays, time-series, scientific data,
-            or anything that doesn't map cleanly to rows and columns - that's our wheelhouse.
+            We build ACID file formats, typed column stores, and distributed engines.
+            If your workload is numerical arrays, time-series, or scientific data —
+            or anything that does not map cleanly to rows and columns — it is precisely where we specialize.
           </p>
           <a href="#contact" class="mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent-soft hover:underline">
             Talk to us about your workload →
@@ -41,19 +41,19 @@
 const deliverables = [
   {
     title: 'Storage engine design',
-    body: 'We spec the on-disk format, index structure, and ACID guarantees from scratch - matched to your read/write ratio and data shapes.',
+    body: 'We specify the on-disk format, index structure, and ACID guarantees from scratch, matched to your read/write ratio and data shapes.',
   },
   {
     title: 'Language bindings',
-    body: 'C, Python (NumPy/PyTorch compatible), and Rust bindings delivered as part of the engagement. Drop-in integration with your existing stack.',
+    body: 'C, Python (NumPy/PyTorch compatible), and Rust bindings delivered as part of the engagement, engineered for drop-in integration with your existing stack.',
   },
   {
     title: 'Performance characterization',
-    body: 'Benchmarks against your actual workload, not synthetic ones. You get the numbers before you commit.',
+    body: 'Benchmarks run against your actual workload, not synthetic ones. You review the numbers before committing.',
   },
   {
     title: 'Ongoing support',
-    body: 'We can stay on as the team that owns and evolves the engine, or hand off clean documented source with a transition period.',
+    body: 'We can remain the team that owns and evolves the engine, or hand off clean, fully documented source with a transition period.',
   },
 ]
 </script>

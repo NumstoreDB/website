@@ -56,7 +56,7 @@ const products: Product[] = [
   {
     id: 'numstore',
     label: 'Numstore',
-    blurb: 'The typed numerical database. Open it, declare a column, write values.',
+    blurb: 'A typed numerical database: open a database, declare a column, and write values.',
     examples: [
       {
         id: 'c',
@@ -263,9 +263,9 @@ fn main() -> numstore::Result<()> {
   {
     id: 'numstore-pro',
     label: 'Numstore Pro',
-    blurb: 'The distributed, multi-node variant. API shape shown for orientation only.',
+    blurb: 'The distributed, multi-node variant of Numstore. API shown for orientation only.',
     wip: true,
-    wipNote: 'Work in progress - estimated December 2026.',
+    wipNote: 'Work in progress — estimated December 2026.',
     examples: [
       {
         id: 'c',
@@ -419,7 +419,7 @@ function resizeIframe(e: Event) {
             <path d="M12 9v4M12 17h.01" />
             <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
           </svg>
-          <span>{{ currentProduct.wipNote }} The API below is illustrative - it may change before release.</span>
+          <span>{{ currentProduct.wipNote }} The API below is illustrative and may change before release.</span>
         </div>
 
         <div

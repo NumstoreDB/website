@@ -113,8 +113,8 @@ function fieldBorderClass(touchedField: boolean, valid: boolean) {
         <div>
           <h2 class="text-2xl font-bold tracking-tight text-fg md:text-3xl">Get in touch</h2>
           <p class="mt-4 text-sm leading-relaxed text-muted">
-            Whether you want to use the libraries, commission a custom engine, or get on the
-            Numstore Pro waitlist - start here. I read every submission and respond within 1-2 business days.
+            To use the libraries, commission a custom engine, or join the Numstore Pro
+            waitlist, start here. We review every submission and respond within one to two business days.
           </p>
           <p class="mt-6 text-xs text-muted">
             Prefer email?
@@ -215,8 +215,8 @@ function fieldBorderClass(touchedField: boolean, valid: boolean) {
         </div>
 
         <div v-else class="flex flex-col justify-center">
-          <p class="text-lg font-semibold text-fg">Got it - thanks.</p>
-          <p class="mt-2 text-sm text-muted">We'll reply within 1–2 business days.</p>
+          <p class="text-lg font-semibold text-fg">Submission received. Thank you.</p>
+          <p class="mt-2 text-sm text-muted">We will respond within one to two business days.</p>
         </div>
 
       </div>

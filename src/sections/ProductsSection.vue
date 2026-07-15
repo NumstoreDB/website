@@ -5,8 +5,8 @@ import { site } from '../config/site'
 <template>
   <section id="products" class="border-b border-border py-20 md:py-24">
     <div class="container-page">
-      <h2 class="text-2xl font-bold tracking-tight text-fg md:text-3xl">Two products</h2>
-      <p class="mt-2 text-sm text-muted">Numstore is the core engine. Numstore Pro adds distributed, multi-node scale.</p>
+      <h2 class="text-2xl font-bold tracking-tight text-fg md:text-3xl">Products</h2>
+      <p class="mt-2 text-sm text-muted">Numstore is the core engine; Numstore Pro extends it with distributed, multi-node scale.</p>
 
       <div class="mt-10 grid gap-px border border-border bg-border md:grid-cols-2">
         <article

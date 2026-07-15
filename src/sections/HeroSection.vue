@@ -3,13 +3,13 @@ const options = [
   {
     id: 'libraries',
     label: 'Use the libraries',
-    desc: 'Open-source Numstore - drop it into your project.',
+    desc: 'Open-source Numstore — integrate it directly into your project.',
     href: '#quickstart',
   },
   {
     id: 'custom',
     label: 'Custom database',
-    desc: 'I design and build custom storage engines for your workload.',
+    desc: 'We design and build custom storage engines for your workload.',
     href: '#custom',
   },
   {
@@ -35,10 +35,10 @@ function navigate(href: string) {
           <a href="https://github.com/NumstoreDB/Numstore"><span class="font-semibold text-accent-soft hover:text-secondary-soft">Numstore</span></a>,
         </h1>
         <p class="mt-6 text-lg leading-relaxed text-muted">
-          A <span class="font-semibold text-accent-soft">Fully ACID</span>, single file
+          A <span class="font-semibold text-accent-soft">fully ACID</span>, single-file
           database for <span class="font-semibold text-accent-soft">numerical arrays</span>,
-          offering speed ups on the <span class="font-semibold text-secondary-soft">order of thousands</span>
-          over the traditional file.
+          delivering speedups on the <span class="font-semibold text-secondary-soft">order of a thousand times</span>
+          over conventional file I/O.
         </p>
       </div>
 
