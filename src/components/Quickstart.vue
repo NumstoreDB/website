@@ -28,8 +28,6 @@ interface Product {
   id: string
   label: string
   blurb: string
-  wip?: boolean
-  wipNote?: string
   examples: Example[]
 }
 
@@ -369,65 +367,6 @@ fn main() -> numstore::Result<()> {
       },
     ],
   },
-  {
-    id: 'enterprise',
-    label: 'Numstore Enterprise',
-    blurb: 'The distributed, multi-node variant. API shape shown for orientation only.',
-    wip: true,
-    wipNote: 'Work in progress — estimated December 2026.',
-    examples: [
-      {
-        id: 'c',
-        label: 'C',
-        install: '# preview — install path TBD',
-        code: `#include <numstore_enterprise.h>
-
-// numstore-enterprise is a work in progress.
-// Shape shown for orientation only.
-
-int main(void) {
-  nse_cluster *c = nse_connect("nse://node-0,node-1,node-2");
-  nse_col *col = nse_col(c, "cpu", NSE_F64);
-
-  double values[] = { 0.41, 0.55, 0.62 };
-  nse_write(col, values, 3);
-
-  nse_close(c);
-}`,
-      },
-      {
-        id: 'python',
-        label: 'Python',
-        install: '# preview — install path TBD',
-        code: `# numstore-enterprise is a work in progress.
-# Shape shown for orientation only.
-
-import numstore_enterprise as nse
-
-with nse.connect("nse://node-0,node-1,node-2") as cluster:
-    col = cluster.column("cpu", dtype="f64")
-    col.write([0.41, 0.55, 0.62])`,
-      },
-      {
-        id: 'rust',
-        label: 'Rust',
-        install: '# preview — crate name TBD',
-        code: `// numstore-enterprise is a work in progress.
-// Shape shown for orientation only.
-
-use numstore_enterprise::{Cluster, Dtype};
-
-#[tokio::main]
-async fn main() -> nse::Result<()> {
-    let cluster = Cluster::connect("nse://node-0,node-1,node-2").await?;
-    let col = cluster.column("cpu", Dtype::F64).await?;
-
-    col.write(&[0.41, 0.55, 0.62]).await?;
-    Ok(())
-}`,
-      },
-    ],
-  },
 ]
 
 const activeProduct = ref(products[0].id)
@@ -507,25 +446,7 @@ const highlightedInstall = computed(() =>
               @click="activeProduct = p.id"
           >
             {{ p.label }}
-            <span
-                v-if="p.wip"
-                class="rounded-full border border-secondary/40 bg-secondary/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-secondary-soft"
-            >
-              WIP
-            </span>
           </button>
-        </div>
-
-        <div
-            v-if="currentProduct.wip"
-            class="flex items-start gap-2 border-b border-border bg-secondary/5 px-4 py-3 text-xs text-secondary-soft"
-            role="status"
-        >
-          <svg viewBox="0 0 24 24" class="mt-0.5 h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 9v4M12 17h.01" />
-            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" />
-          </svg>
-          <span>{{ currentProduct.wipNote }} The API below is illustrative — it may change before release.</span>
         </div>
 
         <div

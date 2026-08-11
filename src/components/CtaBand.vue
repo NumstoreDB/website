@@ -15,14 +15,14 @@ import { site } from '../config/site'
           </h2>
           <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
             Install the binary, write your first column, and have a query running in five minutes.
-            Bring questions to our team whenever you need a hand.
+            If you get stuck, just ask.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a :href="site.external.docs" target="_blank" rel="noopener" class="btn-primary">
               Read the Docs
             </a>
             <RouterLink to="/contact" class="btn-secondary">
-              Talk to us
+              Say hello
             </RouterLink>
           </div>
         </div>

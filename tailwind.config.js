@@ -29,7 +29,6 @@ export default {
         product: {
           smartfiles: '#4a6cd9',
           numstore: '#1c3a7a',
-          enterprise: '#c0391b',
         },
       },
       maxWidth: {

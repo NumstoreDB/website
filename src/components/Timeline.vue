@@ -40,7 +40,7 @@ const entries: Entry[] = [
           The road so far.
         </h2>
         <p class="mt-4 text-base leading-relaxed text-muted">
-          A short, honest timeline. We left out the noisy moments and kept the ones that changed how we work.
+          The short version of how Numstore got to where it is.
         </p>
       </div>
 

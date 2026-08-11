@@ -44,23 +44,6 @@ export const site = {
       accent: 'numstore',
       href: 'https://docs.numstore.com/numstore',
     },
-    {
-      id: 'enterprise',
-      name: 'Numstore Enterprise',
-      tagline: 'Managed Numstore for production teams.',
-      blurb:
-        'I took all the lessons I learned from Numstore and Smartfiles and re wrote an industry performant distributed, multi file database called Numstore-Enterprise',
-      features: [
-        'Supports the "just bytes" formulation that smartfiles does so well',
-        'Distributed enterprise ready database',
-        'Multi file',
-        'Multi node',
-        'Memory safe - written in rust with all the mistakes made in Numstore and Smartfiles remediated',
-        'Unreleased - stay tuned - estimated date: December 2026',
-      ],
-      accent: 'enterprise',
-      href: 'mailto:hello@numstore.com?subject=Numstore%20Enterprise',
-    },
   ],
 } as const
 
