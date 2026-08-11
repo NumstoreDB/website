@@ -14,12 +14,6 @@ const accentClasses: Record<string, { ring: string; text: string; bg: string; bo
     bg: 'bg-product-numstore/10',
     border: 'border-product-numstore/30',
   },
-  enterprise: {
-    ring: 'group-hover:ring-product-enterprise/40',
-    text: 'text-product-enterprise',
-    bg: 'bg-product-enterprise/10',
-    border: 'border-product-enterprise/30',
-  },
 }
 </script>
 
@@ -29,15 +23,15 @@ const accentClasses: Record<string, { ring: string; text: string; bg: string; bo
       <div class="max-w-2xl">
         <div class="eyebrow">Products</div>
         <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Three libraries.
+          Two libraries.
         </h2>
         <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
-          Start with just a single ACID single file database. Then work your way to a numerical database called Numstore.
-          If you still need more performance, go to Numstore Enterprise (a work in progress database).
+          Start with SmartFiles, a single-file ACID database. Then work your way up to Numstore,
+          a numerical database built on top of it.
         </p>
       </div>
 
-      <div class="mt-14 grid gap-6 md:grid-cols-3">
+      <div class="mt-14 grid gap-6 md:grid-cols-2">
         <article
           v-for="(product, i) in site.products"
           :key="product.id"
@@ -53,15 +47,10 @@ const accentClasses: Record<string, { ring: string; text: string; bg: string; bo
               <path d="M14 2v6h6" />
               <path d="M8 13h8M8 17h5" />
             </svg>
-            <svg v-else-if="i === 1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" :class="accentClasses[product.accent].text" aria-hidden="true">
+            <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" :class="accentClasses[product.accent].text" aria-hidden="true">
               <ellipse cx="12" cy="5" rx="9" ry="3" />
               <path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5" />
               <path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6" />
-            </svg>
-            <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" :class="accentClasses[product.accent].text" aria-hidden="true">
-              <path d="M3 21h18" />
-              <path d="M5 21V7l7-4 7 4v14" />
-              <path d="M9 9h2M9 13h2M9 17h2M14 9h2M14 13h2M14 17h2" />
             </svg>
           </div>
 

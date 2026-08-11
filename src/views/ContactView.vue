@@ -4,19 +4,19 @@ import { site } from '../config/site'
 
 const steps = [
   {
-    title: 'We review your request manually',
+    title: 'I read it',
     body:
-      'No autoresponders. A real engineer reads what you sent and figures out who on the team can actually help.',
+      'No autoresponders, no ticket queue. Your message goes straight to my inbox.',
   },
   {
-    title: 'We route it to the right person',
+    title: 'I think about it',
     body:
-      'Operations, engineering, or solutions — whoever owns the surface area of your question gets paged in.',
+      'Bug reports get reproduced, ideas get mulled over, questions get looked into.',
   },
   {
-    title: 'We follow up quickly',
+    title: 'I write back',
     body:
-      'You will hear back with concrete next steps, not a generic discovery-call template.',
+      'You get an actual answer, not a template.',
   },
 ]
 </script>
@@ -27,10 +27,10 @@ const steps = [
       <div class="mx-auto max-w-3xl text-center md:text-left">
         <div class="inline-flex"><div class="eyebrow">Contact</div></div>
         <h1 class="mt-6 font-display text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-          Let's talk about your workload.
+          Get in touch.
         </h1>
         <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
-          Tell us what you are trying to store, query, or scale. We will get back to you with concrete advice.
+          Questions, bug reports, ideas, or just curious how Numstore works — send it over.
         </p>
       </div>
 
@@ -55,8 +55,8 @@ const steps = [
             </ol>
 
             <div class="mt-8 rounded-lg border border-border bg-bg p-4">
-              <p class="text-xs uppercase tracking-widest text-muted">Average response time</p>
-              <p class="mt-1 font-display text-xl font-semibold text-fg">1–2 business days</p>
+              <p class="text-xs uppercase tracking-widest text-muted">Response time</p>
+              <p class="mt-1 font-display text-xl font-semibold text-fg">Usually a day or two</p>
             </div>
 
             <div class="my-8 h-px w-full bg-border" />

@@ -87,7 +87,7 @@ const youtubeUrl = `https://www.youtube.com/${site.youtube.handle}`
 
     <div class="border-t border-border">
       <div class="container-page flex flex-col items-start justify-between gap-2 py-6 text-xs text-muted md:flex-row md:items-center">
-        <p>Copyright © {{ year }} Numstore LLC. All Rights Reserved.</p>
+        <p>© {{ year }} Numstore</p>
         <p class="font-mono text-[11px]">v0.1.0 · built with Vue + Vite</p>
       </div>
     </div>

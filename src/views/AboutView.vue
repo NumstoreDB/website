@@ -10,7 +10,7 @@ import { site } from '../config/site'
         <div class="max-w-3xl">
           <div class="eyebrow">About</div>
           <h1 class="mt-6 font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
-            Numstore is building the most pluggable storage layer
+            Numstore exists so that
             <span class="text-accent-soft">everything can be a database.</span>
           </h1>
           <p class="mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
@@ -47,7 +47,7 @@ import { site } from '../config/site'
           </ul>
           <div class="mt-10 flex flex-wrap gap-3">
             <a :href="`mailto:${site.contact.email}`" class="btn-primary">
-              Contact us
+              Say hello
             </a>
             <a :href="site.external.docs" target="_blank" rel="noopener" class="btn-secondary">
               Read the docs

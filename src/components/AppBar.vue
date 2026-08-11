@@ -76,10 +76,10 @@ function closeMobile() {
       </div>
 
       <div class="hidden md:block">
-        <RouterLink to="/contact" class="btn-primary">Support</RouterLink>
+        <RouterLink to="/contact" class="btn-primary">Contact</RouterLink>
       </div>
 
-      <RouterLink to="/contact" class="btn-primary md:hidden">Support</RouterLink>
+      <RouterLink to="/contact" class="btn-primary md:hidden">Contact</RouterLink>
 
       <button
         type="button"
