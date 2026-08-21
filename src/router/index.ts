@@ -2,11 +2,13 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import LandingView from '../views/LandingView.vue'
 import AboutView from '../views/AboutView.vue'
 import ContactView from '../views/ContactView.vue'
+import DstView from '../views/DstView.vue'
 
 const routes: RouteRecordRaw[] = [
   { path: '/', name: 'home', component: LandingView, meta: { title: 'Numstore — Numerical storage, engineered.' } },
   { path: '/about', name: 'about', component: AboutView, meta: { title: 'About — Numstore' } },
   { path: '/contact', name: 'contact', component: ContactView, meta: { title: 'Contact — Numstore' } },
+  { path: '/simulation', name: 'simulation', component: DstView, meta: { title: 'Simulation — Numstore' } },
 ]
 
 export const router = createRouter({

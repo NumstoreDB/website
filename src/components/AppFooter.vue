@@ -33,6 +33,9 @@ const youtubeUrl = `https://www.youtube.com/${site.youtube.handle}`
             <RouterLink to="/contact" class="text-fg hover:text-accent-soft">Contact</RouterLink>
           </li>
           <li>
+            <RouterLink to="/simulation" class="text-fg hover:text-accent-soft">Simulation</RouterLink>
+          </li>
+          <li>
             <a :href="site.external.docs" target="_blank" rel="noopener" class="text-fg hover:text-accent-soft">
               Documentation ↗
             </a>
