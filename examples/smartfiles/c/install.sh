@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
-git clone https://github.com/NumstoreDB/Numstore
-cd Numstore/src
-# Edit main.c here
-gcc *.c -o main
-./main
+git clone https://github.com/NumstoreDB/Numstore 
+cd Numstore 
+make TARGET=release
+./build/debug/target/bin/smfile_sample2_transactions

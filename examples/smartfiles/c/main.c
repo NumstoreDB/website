@@ -1,53 +1,105 @@
+#include "smartfiles.h"
+
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 
-// Smartfiles is a single header
-#include "smartfiles.h"
-
-static char buf[64];
-
+/**
+ * This demo shows the basics of transactions
+ * in smart files. In general, when you don't specify
+ * begin / commit / rollback, operations are auto committed,
+ * e.g. they either happen or they don't. If you specify begin / commit
+ * you can group various opperations together.
+ */
 int
 main (void)
 {
-  // Open a database
-  smfile_t *smf = smfile_open ("sample1_crud");
-  smfile_remove (smf, NULL, 0, SMF_END);
+  sb_size n;
 
-  // Insert data at offset 0
-  const char *initial = "The quick brown fox jumps over the lazy dog";
-  smfile_insert (smf, initial, 0, strlen (initial));
+  smfile_cleanup ("sample2_txn");
 
-  // Read that data (all of it)
-  sb_size n = smfile_read (smf, buf, 0, SMF_END);
-  printf ("after insert:  \"%.*s\"\n", (int)n, buf);
+  // Open a new smart file
+  smfile_t *smf = smfile_open ("sample2_txn");
 
-  // Execute a transaction
-  smfile_begin (smf);
+  // Start from scratch (remove all data)
+  smfile_remove (smf, NULL, 1, 0, 1, SMF_END);
+
+  // Do 1 full committed transaction
   {
-    // Insert data at offset 34
-    const char *adverb = " really";
-    smfile_insert (smf, adverb, 34, strlen (adverb));
+    smfile_begin (smf);
 
-    n = smfile_read (smf, buf, 0, SMF_END);
-    printf ("after insert:  \"%.*s\"\n", (int)n, buf);
+    uint8_t header[8];
+    uint8_t body[64];
+    uint8_t footer[8];
 
-    // Overwrite data at offset 16
-    smfile_write (smf, "cat", 16, 3);
+    memset (header, 1, sizeof (header));
+    for (int i = 0; i < 64; ++i) {
+      body[i] = (uint8_t)i;
+    }
+    memset (footer, 99, sizeof (footer));
 
-    n = smfile_read (smf, buf, 0, SMF_END);
-    printf ("after write:   \"%.*s\"\n", (int)n, buf);
+    // Three inserts in a row
+    smfile_insert (smf, header, 0, sizeof (header));  // [0..7]   = 1
+    smfile_insert (smf, body, 8, sizeof (body));      // [8..71]  = 0...64
+    smfile_insert (smf, footer, 72, sizeof (footer)); // [72..79] = 99
 
-    // Remove data starting at offset
-    n = smfile_remove (smf, buf, 4, 6);
-    printf ("removed:       \"%.*s\"\n", (int)n, buf);
-
-    n = smfile_read (smf, buf, 0, SMF_END);
-    printf ("after remove (inside txn):  \"%.*s\"\n", (int)n, buf);
+    smfile_commit (smf);
   }
-  smfile_rollback (smf);
 
-  n = smfile_read (smf, buf, 0, SMF_END);
-  printf ("after rollback:  \"%.*s\"\n", (int)n, buf);
+  // Do 1 full roll'ed back transaction
+  {
+    smfile_begin (smf);
+
+    uint8_t zeros[80];
+    memset (zeros, 0, sizeof (zeros));
+    smfile_write (smf, zeros, 1, 0, 1,
+                  sizeof (zeros)); // overwrite everything with 0x00
+
+    smfile_rollback (smf);
+  }
+
+  // Do a read of the roll'ed back data
+  {
+    uint8_t verify[12];
+    n = smfile_read (smf, verify, 1, 68, 1, 12);
+
+    printf ("bytes [68..79] after rollback:\n");
+    for (sb_size i = 0; i < n; ++i) {
+      printf ("  [%" PRId64 "] = %d\n", 68 + i, verify[i]);
+    }
+  }
+
+  // A committed transaction
+  {
+    smfile_begin (smf);
+
+    uint8_t extra[4];
+    memset (extra, 0xCC, sizeof (extra));
+    smfile_insert (smf, extra, 80, sizeof (extra)); // append 4 bytes of 0xcc
+
+    smfile_commit (smf);
+  }
+
+  // A roll'ed back transaction
+  {
+    smfile_begin (smf);
+    smfile_remove (smf, NULL, 1, 80, 1, 4); // attempt to remove what we just
+                                            // appended
+    smfile_rollback (smf);
+  }
+
+  // Final read
+  {
+    uint8_t tail[4];
+    n = smfile_read (smf, tail, 1, 80, 1, 4);
+
+    printf ("bytes [80..83]: ");
+    for (sb_size i = 0; i < n; ++i) {
+      printf ("%d ", tail[i]);
+    }
+    printf ("\n");
+  }
 
   return smfile_close (smf);
 }
+

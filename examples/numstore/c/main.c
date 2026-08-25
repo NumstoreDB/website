@@ -1,89 +1,115 @@
-#include <stdint.h>
-#include <stdio.h>
-#include <assert.h>
-
 #include "numstore.h"
 
-// A packed in memory representation of data
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 struct example
 {
-  float   a;
-  int32_t b[5][10];
+  float    a;
+  int32_t  b;
+  uint32_t d[5][10];
 } __attribute__ ((packed));
 
-static struct example src[200], dest[200];
-static void print_example (const char *label, struct example *ex, int n);
+// Little utils
+static void print_example (const char *label, struct example *ex, int size);
+static void init_example (struct example *ex, int size);
 
+// Our source and destination buffers
+static struct example src[200];
+static struct example dest[200];
+
+/**
+ * This example shows basic first class operations of smart files
+ * Namely:
+ *
+ * 1. Insert (insert data into the middle of an array)
+ * 2. Read (normal read)
+ * 3. Write (overwrite data in the middle of the array)
+ * 4. Remove (remove chunks of data from the middle of an array)
+ */
 int
 main (void)
 {
-  // Initialize some data
-  for (int i = 0; i < 200; i++)
-  {
-    src[i].a = i;
-    for (int r = 0; r < 5; r++)
-    {
-      for (int c = 0; c < 10; c++)
-      {
-        src[i].b[r][c] = i + r * 10 + c;
-      }
-    }
-  }
-
-  // Open up a database
+  // Open a new data file
+  nsdb_cleanup ("sample1_crud");
   nsdb_t *ns = nsdb_open ("sample1_crud");
-
-  // Create a typed variable
-  nsdb_execute (ns, "delete if exists example", NULL);
-  nsdb_execute (ns, "create example struct { a f32, b [5][10] i32 }", NULL);
-
-  // Insert 200 elements of seed data at offset 0
-  int n = nsdb_execute (ns, "insert example 0 %d", src, 200);
-
-  // Begin a transaction - mutations rolled back at the end
-  nsdb_begin (ns);
-  {
-    // Read every 3rd element
-    n = nsdb_execute (ns, "read example[0::3]", dest);
-    print_example ("Every 3rd element", dest, n);
-
-    // Remove every 2nd element up to len - 10
-    n = nsdb_execute (ns, "remove example[0:-10:2]", dest);
-    print_example ("Removed Elements [0:-10:2]", dest, n);
-
-    // Overwrite every 2nd element with src
-    nsdb_execute (ns, "write example[1::2]", src);
-
-    // Read all
-    n = nsdb_execute (ns, "read example[0:]", dest);
-    print_example ("Data After Write [1::2]", dest, n);
+  if (ns == NULL) {
+    return -1;
   }
-  nsdb_rollback (ns);
 
-  // Read all after rollback
-  n = nsdb_execute (ns, "read example[0:]", dest);
-  print_example ("Data After Rollback", dest, n);
+  // Create a new variable
+  nsdb_fexecute (
+      ns,
+      "create example struct {\n"
+      "  a f32,\n"
+      "  b i32,\n"
+      "  d [5][10] u32\n"
+      "}",
+      NULL
+  );
+
+  init_example (src, 200);
+
+  // Insert data at offset 0
+  sb_size n = nsdb_fexecute (ns, "insert example 0 %d", src, 200);
+
+  // Read (most of) data with a stride of 3
+  n         = nsdb_fexecute (ns, "read example[0:-10:3] blimit %ld", dest, sizeof (dest));
+  print_example ("Read elements: ", dest, n);
+
+  // Remove (most of) data with a stride of 2
+  n = nsdb_fexecute (ns, "remove example[0:-10:2] blimit %ld", dest, sizeof (dest));
+  print_example ("Removed elements: ", dest, n);
+
+  // Read all of data
+  n = nsdb_fexecute (ns, "read example[0:] blimit %ld", dest, sizeof (dest));
+  print_example ("After Remove: ", dest, n);
+
+  // Write all of data with src
+  n = nsdb_fexecute (ns, "write example[0::] blimit %ld", src, sizeof (src));
+  n = nsdb_fexecute (ns, "read example[0:] blimit %ld", dest, sizeof (dest));
+  print_example ("After write: ", dest, n);
 
   return nsdb_close (ns);
 }
 
 static void
-print_example (const char *label, struct example *ex, int n)
+print_example (const char *label, struct example *ex, int size)
 {
-  assert(n >= 3);
-  printf ("%s (%d):\n", label, n);
-  for (int i = 0; i < 3; i++)
-  {
+  int show = size > 10 ? 10 : size;
+
+  printf ("%s: examples (%d):\n", label, size);
+  for (int i = 0; i < show; i++) {
     printf (
-        "  [%d] a=%g  b=[[%d, %d ...], [%d, %d ...], ...]\n",
+        "%s:   [%d] a=%g  b=%d  d=[[%u, %u ...], [%u, %u ...], "
+        "...]\n",
+        label,
         i,
         ex[i].a,
-        ex[i].b[0][0],
-        ex[i].b[0][1],
-        ex[i].b[1][0],
-        ex[i].b[1][1]
+        ex[i].b,
+        ex[i].d[0][0],
+        ex[i].d[0][1],
+        ex[i].d[1][0],
+        ex[i].d[1][1]
     );
   }
+  if (size > show) {
+    printf ("%s:   ... (%d more)\n", label, size - show);
+  }
+}
 
-  printf ("  ... (%d more)\n", n - 3);
+static void
+init_example (struct example *ex, int size)
+{
+  for (int i = 0; i < size; i++) {
+    ex[i].a = i;
+    ex[i].b = i + 1;
+    for (int r = 0; r < 5; r++) {
+      for (int c = 0; c < 10; c++) {
+        ex[i].d[r][c] = i + r * 10 + c;
+      }
+    }
+  }
 }
