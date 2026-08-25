@@ -59,7 +59,7 @@ onMounted(async () => {
     :href="repoUrl"
     target="_blank"
     rel="noopener"
-    class="inline-flex h-9 items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 text-xs font-medium text-muted transition-colors hover:text-fg"
+    class="inline-flex h-9 items-center gap-1.5 border border-border px-2.5 text-xs font-medium text-muted transition-colors hover:text-fg"
     :aria-label="stars !== null ? `${stars} stars on GitHub` : 'GitHub'"
   >
     <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">

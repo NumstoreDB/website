@@ -1,8 +1,8 @@
 export const site = {
   name: 'Numstore',
-  tagline: 'Numerical storage, engineered.',
+  tagline: 'ACID storage for numerical arrays.',
   description:
-    'Numstore is a numerical storage engine purpose-built for scientific, analytical, and time-series workloads.',
+    'Numstore is an ACID storage engine for numerical arrays: ints, floats, complex numbers, and structs, with atomic writes and strided reads.',
   github: { owner: 'NumstoreDB', repo: 'Numstore' },
   youtube: { channelId: 'UC_PLACEHOLDER', handle: '@numstore' },
   linkedin: 'https://www.linkedin.com/company/numstore',
@@ -11,8 +11,7 @@ export const site = {
     blog: 'https://theolincke.com',
   },
   contact: {
-    email: 'hello@numstore.com',
-    supportEmail: 'support@numstore.com',
+    email: 'lincketheo.dev@numstore.org',
   },
   products: [
     {
@@ -20,13 +19,12 @@ export const site = {
       name: 'SmartFiles',
       tagline: 'An ACID file with first class support for inner mutations',
       blurb:
-        'Smartfiles is an ACID file - meaning it\'s identical to a normal file, but you can pull the plug on your computer and any query to read, write, insert or remove data either finished or didn\'t, there are no half-writes. Also, Smartfiles dwarfs the speed of normal files for inserting or removing data into the middle of the file, something text editors, video editors, datasets all often require' ,
+        "Smartfiles is an ACID file - meaning it's identical to a normal file, but you can pull the plug on your computer and any query to read, write, insert or remove data either finished or didn't, there are no half-writes. Also, Smartfiles dwarfs the speed of normal files for inserting or removing data into the middle of the file, something text editors, video editors, datasets all often require",
       features: [
         'Store multiple named variables with-in one "smart" file',
         'Read, write or remove "stride-ed" data - skipping every nth byte',
         'Zero dependencies - builds into linux mac and windows machine code',
       ],
-      accent: 'smartfiles',
       href: 'https://docs.numstore.com/smartfiles',
     },
     {
@@ -41,7 +39,6 @@ export const site = {
         'Zero dependencies - builds into linux mac and windows machine code',
         'PyNumstore - a numstore python binding that offers an ACID storage engine for numpy arrays',
       ],
-      accent: 'numstore',
       href: 'https://docs.numstore.com/numstore',
     },
   ],

@@ -1,12 +1,7 @@
-// The /dst_status API contract, plus a mock implementation.
-//
-// Real backend: GET /dst_status?start_date=<iso>&end_date=<iso>&nelems=<n>
-// All aggregation happens server-side — the UI renders this response as-is.
-// To go live, replace the body of fetchDstStatus with a fetch() of that URL.
-//
-// NOTE for the server: an evenly-spread poll sample can drop red (crash)
-// polls, which are the rarest and most important records. The mock always
-// keeps reds when downsampling; the real endpoint should do the same.
+// Static, deterministic fixture data for the simulation UI mockup (DstView).
+// There is no live backend - everything below is generated once, from a
+// fixed seed and a fixed reference time, so the page always renders the
+// same illustrative fleet.
 
 export type PollStatus = 'green' | 'red'
 
@@ -95,16 +90,15 @@ export interface DstStats {
 export interface DstStatusResponse {
   stats: DstStats
   fleet: FleetProc[] // sorted by run start time, longest-lived first
-  runs: RunSummary[] // runs overlapping [start_date, end_date]
-  crashes: CrashRecord[] // newest first, within the range
-  polls: DstPoll[] // raw polls, spread evenly (nelems), reds always kept
+  runs: RunSummary[] // every generated run, full fixture window
+  crashes: CrashRecord[] // newest first
 }
 
 export const SLOTS = 5
 
 // ---------------------------------------------------------------------------
-// Mock world. Deterministic (fixed PRNG seed) so every load and every date
-// range agree with each other.
+// Fixture world. Deterministic (fixed PRNG seed, fixed reference time) so
+// the dataset never changes between loads.
 //
 // Cadence: processes run continuously; a run ends when it crashes (mean
 // time-to-crash ~1 hour) or when a new git tag lands (1–2 per day) and
@@ -200,8 +194,6 @@ interface World {
   runs: SimRun[]
   stats: DstStats
 }
-
-let cache: World | null = null
 
 function simulate(now: number): World {
   const rand = mulberry32(0x9e3779b9)
@@ -325,91 +317,65 @@ function simulate(now: number): World {
   return { now, runs, stats }
 }
 
-export async function fetchDstStatus(
-  startDate: Date,
-  endDate: Date,
-  nelems: number,
-): Promise<DstStatusResponse> {
-  const now = Date.now()
-  // Regenerate at most once a minute so "now" stays fresh but ranges agree.
-  if (!cache || now - cache.now > 60_000) cache = simulate(now)
-  const world = cache
+// Frozen reference time - the dataset is generated once, here, and never
+// changes at runtime.
+export const dstNow = Date.UTC(2026, 0, 15)
 
-  const s = startDate.getTime()
-  const e = endDate.getTime()
+const world = simulate(dstNow)
 
-  // Fleet: latest run per slot, sorted by start time (longest-lived first).
-  const bySlot = new Map<number, SimRun>()
-  for (const r of world.runs) {
-    const cur = bySlot.get(r.slot)
-    if (!cur || r.end > cur.end) bySlot.set(r.slot, r)
-  }
-  const fleet: FleetProc[] = [...bySlot.values()]
-    .map((r) => {
-      const last = r.polls[r.polls.length - 1]
-      return {
-        slot: r.slot,
-        runId: r.runId,
-        pid: r.pid,
-        seed: r.seed,
-        gitTag: r.gitTag,
-        commit: r.commit,
-        start: r.start,
-        lastPollTs: last?.ts ?? r.start,
-        status: (r.endReason === 'crash' ? 'red' : 'green') as PollStatus,
-        dbBytes: r.finalDb,
-        pollSeq: r.finalSeq,
-      }
-    })
-    .sort((a, b) => a.start - b.start)
-
-  const inRange = world.runs.filter((r) => r.end >= s && r.start <= e)
-  const runs: RunSummary[] = inRange.map((r) => ({
-    runId: r.runId,
-    slot: r.slot,
-    gitTag: r.gitTag,
-    commit: r.commit,
-    seed: r.seed,
-    start: r.start,
-    end: r.end,
-    endReason: r.endReason,
-  }))
-
-  const crashes: CrashRecord[] = inRange
-    .filter((r) => r.endReason === 'crash' && r.end >= s && r.end <= e)
-    .sort((a, b) => b.end - a.end)
-    .map((r) => ({
-      ts: r.end,
-      runId: r.runId,
+// Fleet: latest run per slot, sorted by start time (longest-lived first).
+const bySlot = new Map<number, SimRun>()
+for (const r of world.runs) {
+  const cur = bySlot.get(r.slot)
+  if (!cur || r.end > cur.end) bySlot.set(r.slot, r)
+}
+const fleet: FleetProc[] = [...bySlot.values()]
+  .map((r) => {
+    const last = r.polls[r.polls.length - 1]
+    return {
       slot: r.slot,
+      runId: r.runId,
       pid: r.pid,
       seed: r.seed,
       gitTag: r.gitTag,
       commit: r.commit,
       start: r.start,
-      uptimeS: Math.round((r.end - r.start) / 1000),
+      lastPollTs: last?.ts ?? r.start,
+      status: (r.endReason === 'crash' ? 'red' : 'green') as PollStatus,
       dbBytes: r.finalDb,
       pollSeq: r.finalSeq,
-      callStack: r.stack,
-      nParams: N_PARAMS,
-    }))
+    }
+  })
+  .sort((a, b) => a.start - b.start)
 
-  // Raw polls, spread evenly across the range; red polls are always kept.
-  const all = inRange
-    .flatMap((r) => r.polls)
-    .filter((p) => p.ts >= s && p.ts <= e)
-    .sort((a, b) => a.ts - b.ts)
-  let polls = all
-  if (all.length > nelems) {
-    const reds = all.filter((p) => p.status === 'red')
-    const greens = all.filter((p) => p.status === 'green')
-    const keep = Math.max(1, nelems - reds.length)
-    const step = greens.length / keep
-    const sampled: DstPoll[] = []
-    for (let i = 0; i < keep; i++) sampled.push(greens[Math.floor(i * step)])
-    polls = [...sampled, ...reds].sort((a, b) => a.ts - b.ts)
-  }
+const runs: RunSummary[] = world.runs.map((r) => ({
+  runId: r.runId,
+  slot: r.slot,
+  gitTag: r.gitTag,
+  commit: r.commit,
+  seed: r.seed,
+  start: r.start,
+  end: r.end,
+  endReason: r.endReason,
+}))
 
-  await new Promise((r) => setTimeout(r, 120)) // pretend to be a network
-  return { stats: world.stats, fleet, runs, crashes, polls }
-}
+const crashes: CrashRecord[] = world.runs
+  .filter((r) => r.endReason === 'crash')
+  .sort((a, b) => b.end - a.end)
+  .map((r) => ({
+    ts: r.end,
+    runId: r.runId,
+    slot: r.slot,
+    pid: r.pid,
+    seed: r.seed,
+    gitTag: r.gitTag,
+    commit: r.commit,
+    start: r.start,
+    uptimeS: Math.round((r.end - r.start) / 1000),
+    dbBytes: r.finalDb,
+    pollSeq: r.finalSeq,
+    callStack: r.stack,
+    nParams: N_PARAMS,
+  }))
+
+export const dstStatus: DstStatusResponse = { stats: world.stats, fleet, runs, crashes }
