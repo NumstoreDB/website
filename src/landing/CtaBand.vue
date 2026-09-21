@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { site } from '../config/site'
+import { site_data } from '../data'
 </script>
 
 <template>
@@ -14,10 +14,10 @@ import { site } from '../config/site'
             Read the docs, clone the repo, and write your first column. If you get stuck, just ask.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
-            <a :href="site.external.docs" target="_blank" rel="noopener" class="btn-primary">
+            <a :href="site_data.external.docs" target="_blank" rel="noopener" class="btn-primary">
               Read the Docs
             </a>
-            <a :href="`mailto:${site.contact.email}`" class="btn-secondary"> Contact </a>
+            <a :href="`mailto:${site_data.contact.email}`" class="btn-secondary"> Contact </a>
           </div>
         </div>
       </div>

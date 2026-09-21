@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { site } from '../config/site'
+import { site_data } from '../data'
 </script>
 
 <template>
@@ -18,7 +18,7 @@ import { site } from '../config/site'
         </p>
 
         <div class="mt-10 flex flex-wrap gap-3">
-          <a :href="site.external.docs" target="_blank" rel="noopener" class="btn-primary">
+          <a :href="site_data.external.docs" target="_blank" rel="noopener" class="btn-primary">
             Read the Docs
             <svg
               viewBox="0 0 20 20"

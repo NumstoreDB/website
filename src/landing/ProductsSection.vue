@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { site } from '../config/site'
+import { site_data } from '../data'
 </script>
 
 <template>
@@ -18,7 +18,7 @@ import { site } from '../config/site'
 
       <div class="mt-14 grid gap-6 md:grid-cols-2">
         <article
-          v-for="(product, i) in site.products"
+          v-for="(product, i) in site_data.products"
           :key="product.id"
           class="flex flex-col border border-border p-8"
         >

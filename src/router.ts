@@ -1,20 +1,13 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import LandingView from '../views/LandingView.vue'
-import DstView from '../views/DstView.vue'
-import { site } from '../config/site'
+import LandingView from './landing/LandingView.vue'
+import { site_data } from './data'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
     component: LandingView,
-    meta: { title: `${site.name} - ${site.tagline}` },
-  },
-  {
-    path: '/simulation',
-    name: 'simulation',
-    component: DstView,
-    meta: { title: `Simulation - ${site.name}` },
+    meta: { title: `${site_data.name} - ${site_data.tagline}` },
   },
 ]
 

@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import AppBar from './components/AppBar.vue'
-import AppFooter from './components/AppFooter.vue'
+import AppBar from './AppBar.vue'
+import AppFooter from './footer/AppFooter.vue'
 </script>
 
 <template>
   <div class="flex min-h-screen flex-col bg-bg text-fg">
+
     <AppBar />
+
     <main class="flex-1">
+
       <RouterView v-slot="{ Component, route }">
         <transition name="page" mode="out-in">
           <component :is="Component" :key="route.fullPath" />
         </transition>
       </RouterView>
+
     </main>
+
     <AppFooter />
   </div>
 </template>

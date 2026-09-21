@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { site } from '../config/site'
+import { site_data } from './data'
 import GitHubStars from './GitHubStars.vue'
 
+// Make top app bar look different if you are 
+// lower on the page (by 12 pixels)
 const scrolled = ref(false)
 const mobileOpen = ref(false)
 
@@ -40,7 +42,7 @@ function closeMobile() {
         <span
           class="transition-all duration-200 origin-left"
           :class="scrolled ? 'scale-x-0 opacity-0 w-0 overflow-hidden' : 'scale-x-100 opacity-100'"
-          >{{ site.name }}
+          >{{ site_data.name }}
         </span>
       </RouterLink>
 
@@ -48,14 +50,14 @@ function closeMobile() {
 
       <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
         <a
-          :href="site.external.docs"
+          :href="site_data.external.docs"
           target="_blank"
           rel="noopener"
           class="px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-fg"
           >Documentation</a
         >
         <a
-          :href="site.external.blog"
+          :href="site_data.external.blog"
           target="_blank"
           rel="noopener"
           class="px-3 py-2 text-sm font-medium text-muted transition-colors hover:bg-elevated hover:text-fg"
@@ -68,10 +70,10 @@ function closeMobile() {
       </div>
 
       <div class="hidden md:block">
-        <a :href="`mailto:${site.contact.email}`" class="btn-primary">Contact</a>
+        <a :href="`mailto:${site_data.contact.email}`" class="btn-primary">Contact</a>
       </div>
 
-      <a :href="`mailto:${site.contact.email}`" class="btn-primary md:hidden">Contact</a>
+      <a :href="`mailto:${site_data.contact.email}`" class="btn-primary md:hidden">Contact</a>
 
       <button
         type="button"
@@ -119,7 +121,7 @@ function closeMobile() {
       <div v-if="mobileOpen" id="mobile-menu" class="border-t border-border bg-bg md:hidden">
         <div class="container-page flex flex-col gap-1 py-4">
           <a
-            :href="site.external.docs"
+            :href="site_data.external.docs"
             target="_blank"
             rel="noopener"
             class="px-3 py-3 text-base font-medium text-fg hover:bg-elevated"
@@ -127,7 +129,7 @@ function closeMobile() {
             >Documentation</a
           >
           <a
-            :href="site.external.blog"
+            :href="site_data.external.blog"
             target="_blank"
             rel="noopener"
             class="px-3 py-3 text-base font-medium text-fg hover:bg-elevated"
