@@ -1,41 +1,47 @@
-#!/usr/bin/env python3
-
-# Python bindings for Numstore are in progress 
-
+"""Basic operations on an array of [10][20]f64's"""
 import numpy as np
+
 import pynumstore as ns
 
-# Basic Operations
-with ns.open("mydb") as db:
-    with db.begin_txn() as txn:
+rng = np.random.default_rng()
 
-        y = txn.get_or_create("y", dtype="f32")
 
-        # Start with a fresh dataset if y already existed
-        del y[0:]
-        print("Initial State: ", y[0:])
+def show(label, arr):
+    # print the first element of each of the N grids
+    firsts = [f"{v:.3g}" for v in arr[:, 0, 0]]
+    print(f"{label} shape={arr.shape} arr[0][0] = [{', '.join(firsts)}]")
 
-        # Append twice
-        y.append(np.array([1.0, 2.0, 3.0], dtype=np.float32))
-        y.append(np.array([4.0, 5.0, 6.0], dtype=np.float32))
 
-        # Retrieve the whole array
-        print("Seed Data: ", y[0:])
+with ns.Database("example.db") as db:
+    # Create a new variable whose element is a 10x20 block of f64's
+    db.execute("create prices [10][20]f64")
 
-        # Insert in the middle
-        y.insert(2, np.array([4.0, 5.0, 6.0], dtype=np.float32))
+    # Delete everything if it exists
+    db.execute("remove prices[0:]")
 
-        # Retrieve the whole array
-        print("After inner insert: ", y[0:])
+    # Insert 3 elements at index 0. 
+    src = rng.random((3, 10, 20), dtype=np.float64)
+    db.execute(f"insert prices 0 {src.shape[0]}", src)
 
-        # Overwrite data at the start
-        y[1:4] = np.array([9.0, 9.0, 9.0], dtype=np.float32)
-        print("After overwrite 1: ", y[0:])
+    # Read the data we wrote
+    dest = db.execute("read prices[0:]")
+    show("Prices", dest)
 
-        # Overwrite data at the start
-        y[3:7] = np.array([1, 2, 10, 12], dtype=np.float32)
-        print("After overwrite 2: ", y[0:])
+    # Insert 3 more elements starting at index 2
+    src = rng.random((3, 10, 20), dtype=np.float64)
+    db.execute(f"insert prices 2 {src.shape[0]}", src)
 
-        # Remove every even index
-        del y[0::2]
-        print("End state: ", y[0:])
+    # Read the whole array back
+    dest = db.execute("read prices[0:]")
+    show("Prices", dest)
+
+    # Delete every 3rd element of the array
+    removed = db.execute("remove prices[0::3]")
+    show("Removed", removed)
+
+    # Read what's left
+    dest = db.execute("read prices[0:]")
+    show("Remaining", dest)
+
+    var = db.execute("get prices")
+    print(var)

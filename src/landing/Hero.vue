@@ -13,8 +13,8 @@ import { site_data } from '../data'
           Numstore
         </h1>
         <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
-          Numstore is an ACID database engine built for arrays. With Numstore -
-          <span class="text-fg font-medium">anything can be a database.</span>
+          Numstore is an 
+          <span class="text-fg font-medium">ACID database engine built for arrays.</span>
         </p>
 
         <div class="mt-10 flex flex-wrap gap-3">

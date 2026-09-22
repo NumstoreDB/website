@@ -20,8 +20,8 @@ interface Example {
 }
 
 const examples: Example[] = [
-  { id: 'c', label: 'C', install: CInstall, code: CCode },
   { id: 'python', label: 'Python', install: PythonInstall, code: PythonCode },
+  { id: 'c', label: 'C', install: CInstall, code: CCode },
   { id: 'rust', label: 'Rust', install: RustInstall, code: RustCode },
 ]
 

@@ -20,7 +20,7 @@ const siteLinks = [
   <footer class="border-t border-border bg-surface">
     <div class="container-page grid gap-12 py-16 md:grid-cols-12">
       <div class="md:col-span-5">
-        <FooterBrand :name="site_data.name" :description="site_data.description" />
+        <FooterBrand :name="site_data.name" />
       </div>
 
       <div class="md:col-span-4">
