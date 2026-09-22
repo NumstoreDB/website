@@ -10,9 +10,6 @@ import { site_data } from '../data'
           <h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
             Start building with Numstore.
           </h2>
-          <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
-            Read the docs, clone the repo, and write your first column. If you get stuck, just ask.
-          </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a :href="site_data.external.docs" target="_blank" rel="noopener" class="btn-primary">
               Read the Docs
