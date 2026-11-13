@@ -1,6 +1,6 @@
 export const site_data = {
   name: 'Numstore',
-  tagline: 'ACID storage for numerical arrays.',
+  tagline: 'A safe database for arrays.',
   github: { owner: 'NumstoreDB', repo: 'Numstore' },
   youtube: { handle: '@numstore' },
   linkedin: 'https://www.linkedin.com/in/Theo-Lincke',

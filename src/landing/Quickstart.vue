@@ -38,7 +38,7 @@ const currentExample = computed(
       <div class="max-w-2xl">
         <div class="eyebrow">Quickstart</div>
         <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Numstore is ready in a few lines
+          Start in a few lines
         </h2>
       </div>
 

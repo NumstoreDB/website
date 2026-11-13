@@ -6,15 +6,16 @@ import { site_data } from '../data'
   <section class="relative overflow-hidden">
     <div class="container-page py-20 md:py-28 lg:py-32">
       <div class="max-w-3xl">
-        <div class="eyebrow">v1.1.3</div>
+        <div class="eyebrow">v1.5.1</div>
         <h1
           class="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight text-fg sm:text-5xl md:text-6xl lg:text-7xl"
         >
           Numstore
         </h1>
         <p class="mt-6 max-w-xl text-base leading-relaxed text-muted md:text-lg">
-          Numstore is an 
-          <span class="text-fg font-medium">ACID database engine built for arrays.</span>
+          Numstore is a
+          <span class="text-fg font-medium">database for arrays.</span>
+          Insert data into the middle of an array, or remove it. Every change is safe.
         </p>
 
         <div class="mt-10 flex flex-wrap gap-3">
@@ -41,10 +42,10 @@ import { site_data } from '../data'
           alt="Benchmark: Numstore write time vs. file size on a log scale"
         />
         <figcaption class="mt-3 text-center text-xs text-muted">
-          This plot shows how long it takes to punch a hole in the middle of a standard file and
-          write data compared to the same operation done using Numstore (using the "Smartfiles" api
-          in purple). Numstore's inner file modification algorithm is first class, running in
-          logarithmic time with respect to the original file size. Read more about it
+          This plot compares two ways to add data to the middle of a file. The first way opens a
+          hole in a standard file and writes the data. The second way uses Numstore (the
+          "Smartfiles" API, in purple). Numstore takes logarithmic time in the size of the file.
+          Read more about it
           <a href="https://theolincke.com/blog/13_inner_inserts" class="underline text-fg">here</a>.
         </figcaption>
       </figure>

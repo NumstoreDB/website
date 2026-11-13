@@ -8,7 +8,7 @@ import { site_data } from '../data'
       <div class="border border-border p-10 md:p-16">
         <div class="max-w-2xl">
           <h2 class="font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            Start building with Numstore.
+            Start with Numstore.
           </h2>
           <div class="mt-8 flex flex-wrap gap-3">
             <a :href="site_data.external.docs" target="_blank" rel="noopener" class="btn-primary">
